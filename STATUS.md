@@ -1,32 +1,31 @@
 # STATUS.md
 
-## State: v1 live-ready — 2026-07-15
+## State: v2 redesign on branch — 2026-07-16
 
-All pages written and internally linked. No git history yet (files only — repo not initialized/pushed). Ready to `git init`, commit, and push to `ninaneev/ninaneev.github.io` for GitHub Pages.
+Branch `feature/aura-redesign` (commits 5c9d3ea + ce1baf6), NOT yet merged/pushed. main still has v1 live on GitHub Pages.
 
-Pages:
+What v2 is:
 
-- `index.html` — hero, about, Flowity AI (cal.com CTA live), research, systems ledger (3 open-source tiles + featured Full Stack tile), Call It! newsletter, social footer
-- `systems/continuum.html` — free/OSS + guided install €149
-- `systems/cortex.html` — free/OSS + guided install €149
-- `systems/council.html` — free/OSS + guided install €149
-- `systems/full-stack.html` — flagship €1,500, limited seats, "book a call first" → cal.com live
-- `404.html`, `styles.css`, README, CLAUDE.md, BRIDGE.md, .gitignore
+- Full redesign: desktop = wide 1180px editorial layout (fixed blurred nav, full-viewport hero, sticky section labels, breathing orb + film grain aura); mobile = compact single column. CSS-only scroll reveals (`animation-timeline: view()` behind `@supports`). Verified in Chromium at 1440px and 390px.
+- Author renamed sitewide to **Nina Niamh Cressoni**.
+- **Cortex → Canon** (`systems/canon.html`; `cortex.html` is now a meta-refresh redirect). Site links to github.com/ninaneev/canon — repo must be renamed on GitHub.
+- Five-system loop ("the loop" spine): Compass (listens, shipping soon) → Canon (knows) → Continuum (remembers) → Council (decides) → Cadence (executes, shipping soon). New pages `systems/compass.html`, `systems/cadence.html`.
+- Council page: ten-seat bench, credits Edward de Bono (Six Thinking Hats, 1985, parallel thinking).
+- New Ladder section: free clone → €149 guided install → €1,500 Full Stack Install (one time; Compass/Cadence added free when they ship) → Flowity AI retainer (by application, B2B SaaS ICPs only).
+- Research section links the Zenodo preprint: https://zenodo.org/records/19120961 ("From Signals to Decisions", March 2026).
+- Copy rule: no dashes anywhere in visible text (see CLAUDE.md).
 
-## Next (all marked with `<!-- TODO: ... -->` in the HTML)
+## Next
 
-1. Real social links: TikTok, Instagram, X, LinkedIn, YouTube handles + real email in mailto (footer of `index.html`)
-2. Research paper link (`index.html` research section)
-3. Beehiiv subscribe link for Call It! (`index.html` newsletter section)
-4. Stripe payment links: 3× guided install €149 (`systems/*.html`) + Full Stack €1,500 (`systems/full-stack.html`) — then remove `disabled` class and `aria-disabled`
-5. Demo videos: replace `.video-placeholder` blocks on all four system pages
-6. Publish the three GitHub repos (continuum, cortex, council) the install sections link to
+1. Nina reviews branch in browser → merge `feature/aura-redesign` to main → Pages redeploys.
+2. Rename GitHub repo `ninaneev/cortex` → `ninaneev/canon` (Settings → Rename; old URL redirects). Push local canon branch `feature/rename-to-canon`.
+3. Push council branch `feature/ten-advisor-bench`.
+4. Still-open TODOs from v1: social handles + email, Beehiiv link, Stripe payment links (now 5×€149 + €1,500), demo videos.
+5. Build Compass + Cadence repos (site presents them as shipping soon).
 
 ---
 
-## Session handoff 2026-07-15
+## Session handoff 2026-07-15 (v1)
 
 - Done: repo scaffolded, committed (50ddbc0), published public to https://github.com/ninaneev/ninaneev.github.io (MIT where applicable)
 - Site LIVE at https://ninaneev.github.io/ (GitHub Pages auto-build from main, verified 200 on all pages)
-- Known broken: nothing known; no verification run in a clean session yet
-- Next session: Fill the TODO links in index.html + systems/*.html (social handles, research paper, Beehiiv), then create Stripe payment links (€149 guided installs + €1,500 Full Stack) and wire them in.
