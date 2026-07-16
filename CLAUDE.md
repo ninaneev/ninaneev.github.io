@@ -30,7 +30,9 @@ These rules keep the site coherent. Follow them on every edit.
 
 - First person, plain, confident, no hype adjectives. Flowity AI is a premium productized service, never "a SaaS".
 - NO DASHES in visible copy: no em dashes, no hyphen-as-pause. Use periods, colons, commas, or the mono middot `·` in labels. Avoid hyphenated compounds where a clean alternative exists.
-- The author is **Nina Niamh Cressoni** (full name everywhere on the site).
+- The author is **Nina Niamh** everywhere on the site — the full name **Nina Niamh Cressoni** appears ONLY on `about.html` (page title, H1, paper citation there). Do not reintroduce the surname elsewhere.
+- Photos live in `assets/` (nina-desk.jpg square, nina-smile.jpg vertical) and always sit inside a `.portrait-frame` (purple wash + glow) with a mono `.portrait-caption`. Never place a raw `<img>`.
+- Guided install copy always states the call sets the system up "for your business or for your own improvement", with per system examples. The index has a What For section (`#uses`) with paired business/personal examples — keep both sides represented.
 - Five systems, MIT, free: Compass (shipping soon), Canon (renamed from Cortex — never call it Cortex, that name belongs to Flowity), Continuum, Council (ten advisors; credit Edward de Bono / Six Thinking Hats / parallel thinking on the Council page), Cadence (shipping soon).
 - The Ladder: free clone → €149 guided install per system → €1,500 Full Stack Install (one time, limited seats, Compass/Cadence added free when they ship) → Flowity AI retainer (by application, B2B SaaS ICPs only).
 - Research links to the Zenodo preprint: https://zenodo.org/records/19120961 ("From Signals to Decisions: A Framework for Executive Signal Synthesis in AI Systems").
