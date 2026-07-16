@@ -240,7 +240,13 @@ p a:hover {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding: 7rem 0 4rem;
+  padding: 7rem 0 8rem;
+}
+
+@media (max-height: 760px) {
+  .hero .scroll-hint {
+    display: none;
+  }
 }
 
 .hero .eyebrow {
@@ -336,6 +342,7 @@ p a:hover {
 
 .section {
   padding: clamp(4rem, 9vw, 7.5rem) 0 0;
+  scroll-margin-top: 3.5rem;
 }
 
 .section + .section > .section-grid::before,
