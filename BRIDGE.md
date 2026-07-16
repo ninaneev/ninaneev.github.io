@@ -22,3 +22,5 @@ Nina Cressoni's personal site, published at https://ninaneev.github.io via GitHu
 
 - Every unresolved link: `href="#"` + `<!-- TODO: ... -->` comment next to it. Grep for `TODO:` to find all pending items.
 - Design constraints for future edits live in CLAUDE.md; current state and next actions in STATUS.md.
+
+_Last updated: 2026-07-15 — v1 published to https://github.com/ninaneev/ninaneev.github.io. Business model: repos free/open source; revenue = €149 guided install per system + €1,500 Full Stack Install flagship (sold via ninaneev.github.io, Stripe pending)._

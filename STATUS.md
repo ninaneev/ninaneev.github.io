@@ -21,3 +21,12 @@ Pages:
 4. Stripe payment links: 3× guided install €149 (`systems/*.html`) + Full Stack €1,500 (`systems/full-stack.html`) — then remove `disabled` class and `aria-disabled`
 5. Demo videos: replace `.video-placeholder` blocks on all four system pages
 6. Publish the three GitHub repos (continuum, cortex, council) the install sections link to
+
+---
+
+## Session handoff 2026-07-15
+
+- Done: repo scaffolded, committed (50ddbc0), published public to https://github.com/ninaneev/ninaneev.github.io (MIT where applicable)
+- Site LIVE at https://ninaneev.github.io/ (GitHub Pages auto-build from main, verified 200 on all pages)
+- Known broken: nothing known; no verification run in a clean session yet
+- Next session: Fill the TODO links in index.html + systems/*.html (social handles, research paper, Beehiiv), then create Stripe payment links (€149 guided installs + €1,500 Full Stack) and wire them in.
