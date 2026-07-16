@@ -15,13 +15,20 @@ What v2 is:
 - Research section links the Zenodo preprint: https://zenodo.org/records/19120961 ("From Signals to Decisions", March 2026).
 - Copy rule: no dashes anywhere in visible text (see CLAUDE.md).
 
+## Update 2026-07-16 (later session, same branch)
+
+- `about.html` added: full name **Nina Niamh Cressoni** lives ONLY here; everywhere else the site says **Nina Niamh**. Photos in `assets/` (nina-desk.jpg, nina-smile.jpg) shown in hero, about teaser, and about page.
+- Index hero = text + portrait grid; new `#uses` section (business + personal examples); every guided install says "for your business or for your own improvement" with examples.
+- **Compass and Cadence repos are BUILT** (v1 committed on main in `../compass` and `../cadence`, Loomfield worked examples consistent with Council's). Site pages flipped from "shipping soon" to live: free install + guided €149 sections; Full Stack now sells all five systems.
+
 ## Next
 
 1. Nina reviews branch in browser → merge `feature/aura-redesign` to main → Pages redeploys.
-2. Rename GitHub repo `ninaneev/cortex` → `ninaneev/canon` (Settings → Rename; old URL redirects). Push local canon branch `feature/rename-to-canon`.
-3. Push council branch `feature/ten-advisor-bench`.
-4. Still-open TODOs from v1: social handles + email, Beehiiv link, Stripe payment links (now 5×€149 + €1,500), demo videos.
-5. Build Compass + Cadence repos (site presents them as shipping soon).
+2. Create GitHub repos `ninaneev/compass` + `ninaneev/cadence` and push (local repos ready, single commit on main each).
+3. Rename GitHub repo `ninaneev/cortex` → `ninaneev/canon` (Settings → Rename; old URL redirects). Push local canon branch `feature/rename-to-canon`. Local folder still named `cortex` — rename to `canon` after closing whatever locks it.
+4. Push council branch `feature/ten-advisor-bench`.
+5. Stripe: user must authenticate the claude.ai Stripe connector (`/mcp`) → then create 2 payment links (guided install €149, Full Stack €1,500) and wire all buttons (remove `disabled` + `aria-disabled`).
+6. Still-open TODOs from v1: social handles + email, Beehiiv link, demo videos.
 
 ---
 
