@@ -6,7 +6,7 @@ These rules keep the site coherent. Follow them on every edit.
 
 - Background: `#080810` only. Dark theme only — no light mode.
 - Text: near-white `#EDEDF2`; muted `#9494A6`; faint `#6C6C7E`.
-- ONE accent: purple `#9C83F7`. No cyan, no second accent, no gradients between hues. Purple glows, text-shadows, and low-alpha `rgba(156,131,247,…)` washes ARE the aura — use them generously but only in that hue.
+- TWO accents with strict roles. Purple `#9C83F7` is identity and atmosphere: glows, text-shadows, italic hooks, aura washes `rgba(156,131,247,…)` — use generously. Lime `#C6FF33` is action ONLY: primary CTA buttons (`.btn.solid`, nav `.call`), prices, big proof numbers, ticker keywords, hover arrows. Never lime body text, never lime washes or auras, never gradients between hues, no cyan (cyan belongs to Flowity). One lime primary CTA per view.
 - Hairlines: `rgba(237,237,242,0.09)`.
 - All tokens live in `:root` in `styles.css` — change them there, never inline.
 
@@ -34,7 +34,7 @@ These rules keep the site coherent. Follow them on every edit.
 - Photos live in `assets/` (nina-desk.jpg square, nina-smile.jpg vertical) and always sit inside a `.portrait-frame` (purple wash + glow) with a mono `.portrait-caption`. Never place a raw `<img>`.
 - Guided install copy always states the call sets the system up "for your business or for your own improvement", with per system examples. The index has a What For section (`#uses`) with paired business/personal examples — keep both sides represented.
 - Five systems, MIT, free, ALL SHIPPED: Compass, Canon (renamed from Cortex — never call it Cortex, that name belongs to Flowity), Continuum, Council (ten advisors; credit Edward de Bono / Six Thinking Hats / parallel thinking on the Council page), Cadence.
-- The Ladder: free clone → €149 guided install per system → €1,500 Full Stack Install (one time, limited seats, all five systems) → Flowity AI retainer (by application, B2B SaaS ICPs only).
+- The Ladder: free clone → €149 guided install per system → €1,500 Full Stack Install (one time, limited seats, all five systems) → Flowity AI retainer (by application; never state a "B2B SaaS only" restriction in site copy).
 - Research links to the Zenodo preprint: https://zenodo.org/records/19120961 ("From Signals to Decisions: A Framework for Executive Signal Synthesis in AI Systems").
 - Never mention how the site was built or by what tool.
 
