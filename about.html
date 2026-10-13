@@ -3,133 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Nina Niamh Cressoni · portfolio</title>
-  <meta name="description" content="Nina Niamh Cressoni: AI engineer in São Paulo, founder of Flowity AI, author of the Executive Signal Synthesis framework, builder of five open systems.">
+  <title>About Nina Niamh Cressoni</title>
+  <meta name="description" content="Nina Niamh Cressoni: software engineer since 2018, Data Science student, founder of Flowity AI and author of the Executive Signal Synthesis framework.">
+  <meta name="theme-color" content="#111114">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%239C83F7%27/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="lights" aria-hidden="true"></div>
 
-  <nav class="topnav" aria-label="Main">
-    <div class="bar">
-      <a class="brand" href="index.html">Nina Niamh</a>
-      <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="https://zenodo.org/records/19120961">Research</a></li>
-        <li><a class="call" href="index.html#book">Book a call</a></li>
-      </ul>
-    </div>
-  </nav>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="assets/nina-smile.jpg" alt="" width="36" height="36">Nina Niamh</a>
+    <a class="back" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All links</a>
+  </header>
 
-  <main class="wrap product">
+  <main id="main" class="page wide">
 
     <header class="about-hero">
       <div>
-        <span class="eyebrow rise">Portfolio · São Paulo, Brazil</span>
-        <h1 class="rise rise-2">Nina Niamh <span class="soft">Cressoni</span></h1>
-        <p class="lede rise rise-3">AI engineer. Founder of <strong>Flowity AI</strong>. Author of the Executive Signal Synthesis framework. I build the layer between what a company knows and what it decides, and I build it in public.</p>
+        <span class="label">About</span>
+        <h1>Nina Niamh <em>Cressoni</em></h1>
+        <p class="lede">Software engineer since 2018, Data Science student, founder of Flowity AI. I build the layer between what people know and what they decide, and I build it in public.</p>
       </div>
-      <div class="rise rise-3">
-        <div class="portrait-frame">
-          <img src="assets/nina-desk.jpg" alt="Nina Niamh Cressoni at her desk at Flowity AI" width="1254" height="1254">
-        </div>
-        <span class="portrait-caption">Flowity AI · São Paulo</span>
+      <div class="arch">
+        <img src="assets/nina-desk.jpg" alt="Nina Niamh Cressoni at her desk at Flowity AI" width="1254" height="1254">
       </div>
     </header>
 
-    <section class="section">
-      <div class="section-grid">
-        <div class="label reveal"><span class="eyebrow">What I've built</span></div>
-        <div class="reveal">
-          <h2>Five open systems. One external brain.</h2>
-          <p>Each system is a working product I run my own company on, released free under MIT, installable by anyone. Together they form the loop an external brain runs on.</p>
-          <ul class="get-list">
-            <li><a href="systems/compass.html">Compass</a> · a public signal scanner: reviews, forums, and market noise turned into a weekly, source cited brief</li>
-            <li><a href="systems/canon.html">Canon</a> · a local document brain: every answer cites the exact file and passage, or says not found</li>
-            <li><a href="systems/continuum.html">Continuum</a> · persistent memory for Claude Code: sessions that open already briefed</li>
-            <li><a href="systems/council.html">Council</a> · a decision engine: ten adversarial advisors, graded evidence, permanent decision records</li>
-            <li><a href="systems/cadence.html">Cadence</a> · the operating rhythm: daily plans from real state, weekly reviews with a maintenance sweep</li>
-          </ul>
-          <p>The commercial peak of the stack is <strong>Flowity AI</strong>, the managed external brain for B2B SaaS teams, and <a href="systems/full-stack.html">The Full Stack Install</a>, the version of it you own yourself.</p>
-        </div>
-      </div>
+    <section class="block prose" aria-labelledby="drives-title">
+      <h2 id="drives-title">Companies forget. People too. I refuse to accept that.</h2>
+      <p>Every organization I have looked into already knew, somewhere in its documents and conversations, the answer to the question that was hurting it. The knowledge existed. The memory didn't. That gap, between what is known and what is used, is the most expensive thing nobody budgets for. Closing it is what gets me up in the morning.</p>
+      <p>I work in public because reading signals honestly is the whole point. If I can't read my own work honestly, I have no business reading yours. So the numbers, the mistakes and the decisions get shared as they happen.</p>
     </section>
 
-    <section class="section">
-      <div class="section-grid">
-        <div class="label reveal"><span class="eyebrow">Skills</span></div>
-        <div class="reveal">
-          <ul class="get-list">
-            <li>Applied AI engineering: agent systems, retrieval pipelines, NLP first signal processing</li>
-            <li>System design for LLM workflows: memory architectures, evidence grading, decision protocols</li>
-            <li>Product: from research framework to shipped, documented, installable systems</li>
-            <li>Automation: outbound engines, scheduled agents, self hosted pipelines on Docker</li>
-            <li>Writing: research, documentation, and copy that survives being read twice</li>
-          </ul>
-        </div>
-      </div>
+    <section class="block prose" aria-labelledby="now-title">
+      <h2 id="now-title">What I do now</h2>
+      <p><strong>Flowity AI</strong> is my company: a premium productized service that reads business signals for B2B SaaS teams. <a href="https://flowity.ai">Work with Flowity</a>.</p>
+      <p><strong>Daybrief</strong> is the chief of staff I built for my own mornings, packaged so you can run it on yours. <a href="daybrief.html">See Daybrief</a>.</p>
+      <p>And every week I write <a href="newsletter.html">a personal letter</a> about what I am building and learning.</p>
     </section>
 
-    <section class="section">
-      <div class="section-grid">
-        <div class="label reveal"><span class="eyebrow">Research</span></div>
-        <div class="reveal">
-          <h2>Executive Signal Synthesis</h2>
-          <p>My research formalizes what the systems practice: how fragmented business signals become structured, explainable, executive level decisions. ESS treats signal synthesis as its own layer between data processing and decision making, in four stages: ingestion, classification, clustering, synthesis. Published as an open preprint with a prototype implementation.</p>
-          <a class="paper" href="https://zenodo.org/records/19120961">
-            <span class="paper-kind">Preprint · Zenodo · open access</span>
-            <span class="paper-title">From Signals to Decisions: A Framework for Executive Signal Synthesis in AI Systems</span>
-            <span class="paper-meta">Nina Niamh Cressoni · Flowity AI · March 2026</span>
-          </a>
-        </div>
-      </div>
+    <section class="block prose" aria-labelledby="research-title">
+      <h2 id="research-title">Research: Executive Signal Synthesis</h2>
+      <p>My research looks at how fragmented business signals become structured, explainable decisions. It treats signal synthesis as its own layer between data processing and decision making, in four stages: ingestion, classification, clustering and synthesis. It is published as an open preprint with a prototype implementation.</p>
+      <a class="paper" href="https://zenodo.org/records/19120961">
+        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h7l4 4v13h-11z"/><path d="M13.5 3.5v4h4M9 12h6M9 16h4"/></svg></span>
+        <span>
+          <span class="paper-title">From Signals to Decisions: A Framework for Executive Signal Synthesis in AI Systems</span>
+          <span class="paper-meta">Nina Niamh Cressoni · Zenodo preprint, open access · March 2026</span>
+        </span>
+        <span class="go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      </a>
     </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <div class="about-split">
-          <div class="reveal">
-            <div class="portrait-frame">
-              <img src="assets/nina-smile.jpg" alt="Nina Niamh Cressoni smiling at the Flowity AI studio" width="720" height="1280">
-            </div>
-            <span class="portrait-caption">Building in public since 2026</span>
-          </div>
-          <div class="reveal">
-            <span class="eyebrow">What drives me</span>
-            <h2>Companies forget. People too. I refuse to accept that.</h2>
-            <p>Every organization I've looked into already knew, somewhere in its documents and conversations, the answer to the question that was hurting it. The knowledge existed. The memory didn't. That gap, between what is known and what is used, is the most expensive thing nobody budgets for. Closing it is what gets me up in the morning.</p>
-            <p>I work in public because signal literacy is the whole point: if I can't read my own company honestly, I have no business reading yours. The numbers, the mistakes, and the decision records are all published as they happen.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-grid">
-        <div class="label reveal"><span class="eyebrow">CV</span></div>
-        <div class="reveal">
-          <ul class="get-list">
-            <li>Founder &amp; AI engineer, Flowity AI (2026 to present): external AI brains for B2B SaaS, premium productized service</li>
-            <li>Independent researcher: Executive Signal Synthesis framework, open preprint and prototype (Zenodo, 2026)</li>
-            <li>Creator of the five system open stack: Compass, Canon, Continuum, Council, Cadence (MIT)</li>
-            <li>Author, Call It! newsletter on signal literacy</li>
-          </ul>
-          <div class="btn-row">
-            <!-- TODO: CV pdf -->
-            <a class="btn disabled" href="#" aria-disabled="true">Download CV · PDF</a>
-            <a class="btn" href="index.html#book">Book a call</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="site">
-      <p class="colophon">Nina Niamh · built by hand, no framework, no tracker.</p>
-    </footer>
 
   </main>
 
+  <footer class="footer">
+    <ul class="socials" aria-label="Social profiles">
+      <li><a href="https://www.tiktok.com/@nina.neev" aria-label="TikTok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3.2c.5 2.6 2.3 4.3 5 4.5"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/in/ninaneev" aria-label="LinkedIn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5v6M8 7.5v.01M12 16.5v-6M12 13.2c0-1.6 1-2.7 2.4-2.7s2.1.9 2.1 2.6v3.4"/></svg></a></li>
+      <li><a href="https://www.instagram.com/ninaneev" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></svg></a></li>
+      <li><a href="https://github.com/ninaneev" aria-label="GitHub"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li>
+    </ul>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="https://flowity.ai">Work with Flowity</a>
+      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+    </div>
+    <p class="footer-note">© 2026 Nina Niamh</p>
+  </footer>
 </body>
 </html>

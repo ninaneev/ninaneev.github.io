@@ -1,5 +1,15 @@
 # STATUS.md
 
+## 2026-10-13 · link-in-bio rebuild (branch feature/link-in-bio, uncommitted frontend work)
+
+- Full frontend redesign: one lilac accent (#9C83F7) on soft black/white, lime and all second accents deleted. Orb + grain kept, new `.lights` layer.
+- `index.html` is now the link hub: arch portrait, socials (TikTok @nina.neev, LinkedIn, Instagram, GitHub), 7 icon link cards (Daybrief featured €347, Free, Newsletter, Flowity, Blog, Course coming soon, The circle) + inline newsletter signup.
+- New pages: `daybrief.html`, `daybrief-thanks.html`, `free.html`, `newsletter.html`, `community.html` (#circle, #course), `blog/index.html`, `blog/hello.html` (DRAFT, Nina to review).
+- `config.js` + `app.js` added (forms, Daybrief buy box, thanks session check). `SALES_OPEN: false` until launch.
+- `about.html` rewritten without the five systems; 404 restyled; `systems/` deleted. Old Cal.com embed removed from the hub.
+- Open: demo video slot on daybrief.html (TODO comment), CV pdf dropped from about, BRIDGE.md still describes the old systems, blog post copy needs Nina's review. Verified at 390 and 1440 wide with mocked endpoints.
+
+
 ## State: v2 redesign on branch — 2026-07-16
 
 Branch `feature/aura-redesign` (commits 5c9d3ea + ce1baf6), NOT yet merged/pushed. main still has v1 live on GitHub Pages.

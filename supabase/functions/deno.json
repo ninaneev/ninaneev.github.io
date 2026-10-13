@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "tasks": {
+    "check": "deno check nina-subscribe/index.ts daybrief-checkout/index.ts daybrief-session/index.ts",
+    "test": "deno test _shared/"
+  }
+}
