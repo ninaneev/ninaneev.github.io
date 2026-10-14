@@ -91,7 +91,7 @@ export function confirmationEmail(email: string): Email {
   }</div>`;
   return {
     to: email,
-    subject: "You're on the Daybrief list",
+    subject: "About Daybrief",
     text: PARAGRAPHS.join("\n\n") + "\n",
     html,
     reply_to: NINA_INBOX,
