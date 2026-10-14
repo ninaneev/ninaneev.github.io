@@ -144,6 +144,102 @@
 
   each("form[data-source]", bindForm);
 
+  /* ---------- Daybrief waitlist (Resend, daybrief-waitlist function) ---------- */
+
+  var WAITLIST_MAILTO = "mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Tell%20me%20when%20it%27s%20ready";
+
+  // Mirrors normalizeWebsite in the function: empty is fine, otherwise a host with a dot.
+  function cleanWebsite(raw) {
+    var v = (raw || "").trim();
+    if (!v) return "";
+    if (v.length > 200 || /\s/.test(v)) return null;
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(v)) v = "https://" + v;
+    try {
+      var u = new URL(v);
+      if (!/^https?:$/.test(u.protocol) || u.username || u.password) return null;
+      if (!/^[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,63}$/.test(u.hostname)) return null;
+      return v;
+    } catch (e) { return null; }
+  }
+
+  function bindWaitlist(form) {
+    var status = form.querySelector(".form-status");
+    var email = form.querySelector('input[name="email"]');
+    var site = form.querySelector('input[name="website"]');
+    var hp = form.querySelector('input[name="company"]');
+    var btn = form.querySelector('button[type="submit"]');
+
+    function say(text, isError, withMailto) {
+      if (!status) return;
+      status.textContent = text || "";
+      status.classList.toggle("error", !!isError);
+      if (withMailto) {
+        status.appendChild(document.createTextNode(" "));
+        var a = el("a");
+        a.href = WAITLIST_MAILTO;
+        a.textContent = "Email me instead";
+        status.appendChild(a);
+        status.appendChild(document.createTextNode(" and I will add you by hand."));
+      }
+    }
+    function invalid(input, on) {
+      if (!input) return;
+      if (on) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var value = (email && email.value || "").trim();
+      var website = cleanWebsite(site && site.value);
+      invalid(email, false);
+      invalid(site, false);
+      if (!EMAIL_RE.test(value)) {
+        invalid(email, true);
+        if (email) email.focus();
+        say("Please enter a valid email address.", true);
+        return;
+      }
+      if (website === null) {
+        invalid(site, true);
+        if (site) site.focus();
+        say("That website does not look right. Try something like yourcompany.com, or leave it empty.", true);
+        return;
+      }
+      var body = { email: value, referrer: window.location.pathname };
+      if (website) body.website = website;
+      if (hp && hp.value) body.company = hp.value;
+
+      var label = btn ? btn.innerHTML : "";
+      if (btn) { btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = "Sending"; }
+      say("");
+
+      postJSON("/daybrief-waitlist", body).then(function (data) {
+        if (!data || data.ok !== true) throw new Error("not ok");
+        var box = el("div", "success");
+        box.setAttribute("tabindex", "-1");
+        box.appendChild(el("span", "tile", ICON_CHECK));
+        var p = el("p");
+        p.textContent = "Thank you. I'll write when Daybrief is ready.";
+        box.appendChild(p);
+        var note = el("p", "muted");
+        note.textContent = "A short note from me is on its way to your inbox.";
+        box.appendChild(note);
+        form.replaceWith(box);
+        box.focus({ preventScroll: true });
+        confetti(box.querySelector(".tile"));
+      }).catch(function (err) {
+        var code = err && err.data && err.data.error;
+        if (code === "invalid_email") { invalid(email, true); say("Please check that email address.", true); }
+        else if (code === "invalid_website") { invalid(site, true); say("Please check the website, or leave it empty.", true); }
+        else if (code === "rate_limited") say("That was a lot of tries. Give it a few minutes.", true, true);
+        else say("Something went wrong on my side.", true, true);
+        if (btn) { btn.disabled = false; btn.removeAttribute("aria-busy"); btn.innerHTML = label; }
+      });
+    });
+  }
+
+  each("form[data-waitlist]", bindWaitlist);
+
   /* ---------- Daybrief buy box ---------- */
 
   each("[data-buy]", function (box) {

@@ -12,6 +12,7 @@ Flowity's own functions in the same project.
 | `nina-stripe-webhook` | POST (Stripe only) | Fulfilment: Kit buyer tag + custom fields with a 30 day download link |
 | `daybrief-checkout` | POST `{email?}` | Legacy alias of `nina-checkout` pinned to `daybrief` |
 | `daybrief-session` | GET `?session_id=cs_...` | Legacy alias of `nina-session`, only answers for Daybrief sessions |
+| `daybrief-waitlist` | POST `{email, website?, referrer?, company?}` | Resend (not Kit): contact with `website` property in the Daybrief segment, confirmation email from nina@flowity.ai, notification to Nina. See section 9 |
 
 Errors are always `{ "ok": false, "error": "<code>" }` with no upstream details. CORS allows
 `https://ninaneev.github.io` and `http://localhost:*` / `http://127.0.0.1:*` only (the webhook
@@ -127,7 +128,7 @@ Local checks (Deno via npx works without a Deno install):
 
 ```powershell
 cd supabase/functions
-npx -y deno check nina-subscribe/index.ts nina-checkout/index.ts nina-session/index.ts nina-stripe-webhook/index.ts daybrief-checkout/index.ts daybrief-session/index.ts
+npx -y deno check nina-subscribe/index.ts nina-checkout/index.ts nina-session/index.ts nina-stripe-webhook/index.ts daybrief-checkout/index.ts daybrief-session/index.ts daybrief-waitlist/index.ts
 npx -y deno test _shared/
 ```
 
@@ -169,6 +170,55 @@ $FN = "https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1"
 Invoke-RestMethod -Method Post -Uri "$FN/nina-checkout" -ContentType "application/json" -Body '{"product":"ai-edge"}'
 Invoke-RestMethod -Uri "$FN/nina-session?session_id=cs_test_..."
 ```
+
+## 9. Daybrief waitlist (`daybrief-waitlist`, Resend)
+
+The two "Tell me when it's ready" forms on `daybrief.html` post `{email, website?, referrer, company}`
+here. `company` is the honeypot (filled = fake 200, nothing sent). The website is optional;
+`yourcompany.com` becomes `https://yourcompany.com` (query, hash, trailing slash dropped).
+
+Per signup: (1) `POST /contacts` with `properties.website` and `segments:[{id}]`; if the contact
+already exists it falls back to `PATCH /contacts/{email}` + `POST /contacts/{email}/segments/{id}`.
+(2) Confirmation from `Nina Niamh <nina@flowity.ai>` (reply to nina@), subject "You're on the
+Daybrief list". (3) Notification to nina@flowity.ai, subject `[Site · Daybrief] waitlist: <email>`,
+with the website and whether the Resend contact was saved (reply goes to the person).
+Returns 200 unless both the contact and the notification failed (502 `waitlist_failed`).
+Other errors: 400 `invalid_body|invalid_email|invalid_website`, 413, 429 `rate_limited`
+(5 per IP per 10 min, per warm instance), 503 `not_configured` (no `RESEND_API_KEY`). The same
+email twice within an hour gets 200 without a second email. The page shows a mailto fallback on
+any failure.
+
+### Resend setup (Nina, Resend dashboard, once)
+
+1. Audience > Properties > Add property: key `website`, type `string`, no fallback. The contact
+   create fails if this property does not exist (the notification still reaches you, marked
+   "Resend contact: FAILED").
+2. Audience > Segments > Create segment, name `daybrief-waitlist`. Open it and copy its ID (a UUID).
+3. Sender: `flowity.ai` is already verified (the hub functions and Vela send from nina@flowity.ai).
+
+### Secrets
+
+| Secret | Value | Note |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Resend API key with **full access** (contacts need it; a sending only key fails on step 1) | Already set in this project for the hub functions. Check that key is full access, otherwise create a new full access key and update it in the Dashboard |
+| `RESEND_DAYBRIEF_SEGMENT_ID` | the segment ID from step 2 | Not sensitive. Without it contacts are saved without the segment (logged as a warning) |
+
+```powershell
+supabase secrets set RESEND_DAYBRIEF_SEGMENT_ID=<segment-uuid> --project-ref yrqbzaqbracrgaxzhyxr
+```
+
+### Deploy and test
+
+```powershell
+supabase functions deploy daybrief-waitlist --project-ref yrqbzaqbracrgaxzhyxr --no-verify-jwt
+$FN = "https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1"
+Invoke-RestMethod -Method Post -Uri "$FN/daybrief-waitlist" -ContentType "application/json" -Body '{"email":"you+test@example.com","website":"example.com"}'
+```
+
+Expected `{ ok: true }`, the contact in the segment with `website`, the confirmation in that
+inbox and the notification at nina@. The frontend needs no change after deploy (it already
+calls `FN_BASE/daybrief-waitlist`). Tests: `npx -y deno test _shared/` covers validation,
+the limiter, the Resend payload and the email copy.
 
 ## Known gaps
 

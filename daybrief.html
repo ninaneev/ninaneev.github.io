@@ -36,7 +36,20 @@
         <div class="buy rise" style="--i:3" id="buy">
           <p class="buy-head"><span class="chip lilac">In testing</span></p>
           <p class="buy-sub">I'm using it myself first. When it's ready for you, I'll say so.</p>
-          <a class="btn primary" href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Tell%20me%20when%20it%27s%20ready">Tell me when it's ready</a>
+          <form class="form waitlist" data-waitlist novalidate>
+            <div class="field">
+              <label for="wl-email">Email</label>
+              <input class="input" id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-describedby="wl-status">
+            </div>
+            <div class="field">
+              <label for="wl-site">Your website <span class="opt">(optional)</span></label>
+              <input class="input" id="wl-site" name="website" type="text" autocomplete="url" inputmode="url" spellcheck="false" autocapitalize="off" placeholder="yourcompany.com" aria-describedby="wl-status">
+            </div>
+            <div class="hp" aria-hidden="true"><label for="wl-company">Company</label><input id="wl-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+            <button class="btn primary" type="submit">Tell me when it's ready</button>
+            <p class="form-status" id="wl-status" role="status" aria-live="polite"></p>
+            <noscript><p class="form-note">This form needs JavaScript. <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Tell%20me%20when%20it%27s%20ready">Email me</a> and I will add you by hand.</p></noscript>
+          </form>
         </div>
       </div>
 
@@ -258,7 +271,20 @@
       <h2 id="close-title">Start tomorrow with a plan</h2>
       <p>Daybrief is in testing. I'm using it myself first. Want a note when it's ready?</p>
       <div class="buy">
-        <a class="btn primary" href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Tell%20me%20when%20it%27s%20ready">Tell me when it's ready</a>
+        <form class="form waitlist" data-waitlist novalidate>
+          <div class="field">
+            <label for="wl2-email">Email</label>
+            <input class="input" id="wl2-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-describedby="wl2-status">
+          </div>
+          <div class="field">
+            <label for="wl2-site">Your website <span class="opt">(optional)</span></label>
+            <input class="input" id="wl2-site" name="website" type="text" autocomplete="url" inputmode="url" spellcheck="false" autocapitalize="off" placeholder="yourcompany.com" aria-describedby="wl2-status">
+          </div>
+          <div class="hp" aria-hidden="true"><label for="wl2-company">Company</label><input id="wl2-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+          <button class="btn primary" type="submit">Tell me when it's ready</button>
+          <p class="form-status" id="wl2-status" role="status" aria-live="polite"></p>
+          <noscript><p class="form-note">This form needs JavaScript. <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Tell%20me%20when%20it%27s%20ready">Email me</a> and I will add you by hand.</p></noscript>
+        </form>
       </div>
     </section>
 

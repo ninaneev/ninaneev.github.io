@@ -546,6 +546,16 @@ strong { font-weight: 600; color: var(--ink); }
 .form-note { font-size: 0.82rem; color: var(--muted); margin: 0; }
 .form-status { font-size: 0.92rem; margin: 0; min-height: 0; }
 .form-status.error { color: #EDB4C4; }
+.form-status a { color: var(--lilac); text-decoration: underline; text-underline-offset: 3px; }
+/* Honeypot: off screen for people and screen readers, still filled in by naive bots. */
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+/* Daybrief waitlist: email + optional website, stacked; button full width on phones. */
+.waitlist { position: relative; }
+.waitlist .btn { width: 100%; }
+@media (min-width: 520px) {
+  .waitlist .btn { width: auto; justify-self: start; }
+}
 
 .success {
   display: grid;

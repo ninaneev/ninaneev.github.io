@@ -66,7 +66,54 @@ export function tagsForSource(source: Source): string[] {
   return ["newsletter", `src-${source}`];
 }
 
-const SESSION_ID_RE = /^cs_(test|live)_[A-Za-z0-9]{10,200}$/;
+export const MAX_WEBSITE_LEN = 200;
+
+/**
+ * Website for the Daybrief waitlist. undefined = left empty (fine, it is optional),
+ * null = filled but not a usable http(s) address. Adds https:// when the scheme is missing,
+ * lowercases the host, drops credentials, query, hash and a trailing slash.
+ */
+export function normalizeWebsite(raw: unknown): string | null | undefined {
+  if (raw == null) return undefined;
+  if (typeof raw !== "string") return null;
+  // deno-lint-ignore no-control-regex
+  const value = raw.replace(/[\u0000-\u001f\u007f]/g, "").trim();
+  if (!value) return undefined;
+  if (value.length > MAX_WEBSITE_LEN || /\s/.test(value)) return null;
+  const withScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(value) ? value : `https://${value}`;
+  let url: URL;
+  try {
+    url = new URL(withScheme);
+  } catch {
+    return null;
+  }
+  if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+  if (url.username || url.password) return null;
+  const host = url.hostname;
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,63}$/.test(host)) return null;
+  const path = url.pathname.replace(/\/+$/, "");
+  return `${url.protocol}//${url.host}${path}`;
+}
+
+export type WaitlistInput =
+  | { ok: true; honeypot: true }
+  | { ok: true; honeypot: false; email: string; website?: string; referrer?: string }
+  | { ok: false; error: "invalid_body" | "invalid_email" | "invalid_website" };
+
+export function parseWaitlistBody(body: unknown): WaitlistInput {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return { ok: false, error: "invalid_body" };
+  const b = body as Record<string, unknown>;
+  // Same honeypot as nina-subscribe: the hidden "company" field. Pretend success, do nothing.
+  if (typeof b.company === "string" && b.company.trim() !== "") return { ok: true, honeypot: true };
+  const email = normalizeEmail(b.email);
+  if (!email) return { ok: false, error: "invalid_email" };
+  const website = normalizeWebsite(b.website);
+  if (website === null) return { ok: false, error: "invalid_website" };
+  const referrer = typeof b.referrer === "string" && /^\/[\w./-]{0,100}$/.test(b.referrer) ? b.referrer : undefined;
+  return { ok: true, honeypot: false, email, website, referrer };
+}
+
+const SESSION_ID_RE =/^cs_(test|live)_[A-Za-z0-9]{10,200}$/;
 export function isCheckoutSessionId(raw: unknown): raw is string {
   return typeof raw === "string" && SESSION_ID_RE.test(raw);
 }

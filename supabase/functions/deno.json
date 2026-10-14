@@ -3,7 +3,7 @@
     "strict": true
   },
   "tasks": {
-    "check": "deno check nina-subscribe/index.ts nina-checkout/index.ts nina-session/index.ts nina-stripe-webhook/index.ts daybrief-checkout/index.ts daybrief-session/index.ts",
+    "check": "deno check nina-subscribe/index.ts nina-checkout/index.ts nina-session/index.ts nina-stripe-webhook/index.ts daybrief-checkout/index.ts daybrief-session/index.ts daybrief-waitlist/index.ts",
     "test": "deno test _shared/"
   }
 }
