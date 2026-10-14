@@ -1,6 +1,6 @@
 # ninaneev.github.io
 
-Nina Niamh's personal link-in-bio site: Daybrief, free resources, the weekly letter, the blog, the circle, and a link to Flowity AI.
+Nina Niamh's personal link-in-bio site: Daybrief, free resources, the weekly letter, the blog, and a link to Flowity AI.
 
 ## Stack
 
@@ -10,11 +10,10 @@ Static HTML and one shared `styles.css`. A small vanilla `app.js` (plus `config.
 
 ```
 index.html             link hub
-daybrief.html          Daybrief sales page (€347)
+daybrief.html          Daybrief page (in testing, no price)
 daybrief-thanks.html   post checkout page (checks the Stripe session)
 free.html              free resources
 newsletter.html        newsletter signup
-community.html         the circle waitlist + course waitlist
 blog/                  blog index and posts
 about.html             about Nina
 404.html               not found

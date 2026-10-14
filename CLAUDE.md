@@ -29,7 +29,7 @@ Nina's personal link-in-bio site (TikTok and LinkedIn bio link). It sells Nina, 
 
 - CSS first, small vanilla JS in `app.js`. Every animation has a reason (feedback, state change, one celebratory moment). Custom curves `--ease-out` and `--ease-in-out` in `:root`.
 - Hub and inner page heroes use the `.rise` load stagger (`--i`). Below the fold, `data-reveal` (single element) and `data-reveal-group` (stagger its children) are armed by `app.js` only when they start off screen, so nothing visible ever blinks.
-- Daybrief: the hero brief types itself once (`data-brief`, `data-type` lines with a ghost copy so nothing shifts), the edition picker is CSS only (radio inputs + sliding thumb, works without JS), and a phone only buy bar (`data-buybar`) appears after the hero buy box scrolls away.
+- Daybrief: the hero brief types itself once (`data-brief`, `data-type` lines with a ghost copy so nothing shifts), the edition picker is CSS only (radio inputs + sliding thumb, works without JS). The ebook pages have a phone only buy bar (`data-buybar`) that appears after the hero buy box scrolls away; Daybrief has none while in testing.
 - Free page: CSS book covers (`.cover-plan`, `.cover-auto`) float gently and tilt toward the pointer on desktop (`data-tilt`).
 - Subscribe success and the paid thanks state fire a short lilac confetti burst. Blog posts have a CSS scroll progress bar and a lilac drop cap.
 - Hover motion is gated behind `(hover: hover) and (pointer: fine)`. Reduced motion: no animation at all, the brief shows fully written, confetti and tilt are skipped.
@@ -37,7 +37,7 @@ Nina's personal link-in-bio site (TikTok and LinkedIn bio link). It sells Nina, 
 ## JavaScript
 
 - Allowed ONLY in `config.js` (`window.NINA = { FN_BASE, SALES_OPEN, EBOOKS_OPEN }`) and `app.js` (subscribe forms, Daybrief buy box and buy bar, thanks page session check, plus the motion helpers above). Vanilla, no frameworks, no build step, no trackers.
-- Forms: `<form data-source="...">` posts to `nina-subscribe` with `{ email, first_name?, source, referrer }` (referrer = page path). Live sources: newsletter, day-plan, automation-ebook, unlocking-ebook, sentiment-ebook, ebooks-waitlist, daybrief-waitlist, course (only on package-it.html). community exists in the backend but is hidden. Gated forms say the person also gets the newsletter.
+- Forms: `<form data-source="...">` posts to `nina-subscribe` with `{ email, first_name?, source, referrer }` (referrer = page path). Live sources: newsletter, day-plan, automation-ebook, unlocking-ebook, sentiment-ebook, ebooks-waitlist. daybrief-waitlist is still accepted by the backend but no page uses it while Daybrief is in testing. Gated forms say the person also gets the newsletter.
 - Buy boxes: `[data-buy]` with `data-gate` naming the flag (`SALES_OPEN` for Daybrief, the default; `EBOOKS_OPEN` for the ebooks). False shows the waitlist form, true shows the checkout button. `data-checkout` with no value posts to `daybrief-checkout`; `data-checkout="ai-edge"` or `"package-it"` posts `{product}` to `nina-checkout`. Both redirect to the returned Stripe url.
 - Thanks pages: `daybrief-thanks.html` uses `daybrief-session`; the shared `thanks.html` (`data-endpoint="nina-session"`) fills `[data-product]` with the product name and shows the matching `[data-product-extra]` note.
 - Covers: `.cover > img` points at `assets/covers/<slug>.png`; if the PNG is missing, app.js removes it and the CSS cover underneath shows.
@@ -45,14 +45,14 @@ Nina's personal link-in-bio site (TikTok and LinkedIn bio link). It sells Nina, 
 
 ## Offers (current)
 
-1. Daybrief · €347 one time (`daybrief.html`, thanks page `daybrief-thanks.html`). Three editions in one purchase: Make (recommended, runs in Make cloud every morning, setup about 30 to 45 min), Claude (Claude Code, runs when you type /daybrief, Claude Pro, about 20 to 30 min), n8n (n8n Cloud or self hosted, about 45 to 90 min). Privacy per edition: Claude stays within their Claude account; Make and n8n send email text to the AI provider they choose (Ollama on self hosted n8n keeps it local). There is NO setup call bonus.
+1. Daybrief · IN TESTING, no price shown (`daybrief.html`, thanks page `daybrief-thanks.html`, noindex). Nina uses it herself first; the hub chip says "In testing" and the page has a "Tell me when it's ready" mailto ([Site · Daybrief]) instead of a buy box or buy bar. Keep `SALES_OPEN=false`. Three editions: Make (recommended, runs in Make cloud every morning, setup about 30 to 45 min), Claude (Claude Code, runs when you type /daybrief, Claude Pro, about 20 to 30 min), n8n (n8n Cloud or self hosted, about 45 to 90 min). Privacy per edition: Claude stays within their Claude account; Make and n8n send email text to the AI provider they choose (Ollama on self hosted n8n keeps it local). There is NO setup call bonus.
 2. Free resources (`free.html`): 10 Minute Day Plan plus three free ebooks (Do You Need Automation, Unlocking Business Potential, Sentiment Synthesis), email gated, files in `free/files/`; a "Go deeper" section (`#ebooks`) for the paid ebooks; Flowity public read and sample (external)
-2b. Paid ebooks: `ai-edge.html` (The AI Edge, €27: ebook, workbook, 25 prompts, Notion Signal Log) and `package-it.html` (Package It, €7: 7 day plan, worksheets, pricing calculator, offer page template, 15 Claude prompts, checklist; ends with the free course waitlist, opening 5 February 2027)
+2b. Paid ebooks: `ai-edge.html` (The AI Edge, €27: ebook, workbook, 25 prompts, Notion Signal Log) and `package-it.html` (Package It, €7: 7 day plan, worksheets, pricing calculator, offer page template, 15 Claude prompts, checklist)
 3. Newsletter (`newsletter.html`, Kit), name placeholder `data-nl-name`
 4. Flowity (https://flowity.ai), tagline "See clearly." Flowity is a premium productized service, never "a SaaS".
 5. Blog (`blog/`, posts use `.post` / `.post-body`)
 
-Hidden, not deleted: the community waitlist (the course waitlist now lives only at the end of `package-it.html`). `community.html` stays in the repo with `noindex` and must not be linked from the hub, nav, footer or any page until Nina brings them back.
+Removed 2026-10-14: the circle (community) and the course, including `community.html` and both waitlists. Never mention them on the site.
 
 The old five systems, guided installs, Full Stack Install, the loop and the ladder are retired. Never mention them.
 

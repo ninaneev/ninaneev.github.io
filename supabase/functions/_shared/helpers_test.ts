@@ -61,7 +61,7 @@ Deno.test("subscribe body: honeypot, validation, happy path", () => {
 });
 
 Deno.test("tags: newsletter plus source tag", () => {
-  assertEquals(tagsForSource("community"), ["newsletter", "src-community"]);
+  assertEquals(tagsForSource("day-plan"), ["newsletter", "src-day-plan"]);
   assertEquals(tagsForSource("newsletter"), ["newsletter", "src-newsletter"]);
 });
 

@@ -4,8 +4,6 @@ export const SOURCES = [
   "newsletter",
   "day-plan",
   "automation-ebook",
-  "course",
-  "community",
   "daybrief-waitlist",
   "unlocking-ebook",
   "sentiment-ebook",

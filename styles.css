@@ -1050,12 +1050,6 @@ strong { font-weight: 600; color: var(--ink); }
 .free-split-title { margin: 3rem 0 0.4rem; font-size: clamp(1.4rem, 3.4vw, 1.8rem); }
 .free-split-title + p { color: var(--muted); margin-bottom: 1rem; }
 
-/* ---------- Community ---------- */
-
-.waitlists { display: grid; gap: 0.8rem; }
-@media (min-width: 760px) { .waitlists { grid-template-columns: 1fr 1fr; } }
-.waitlists .signup { margin-top: 0; scroll-margin-top: 24px; }
-.waitlists .signup:target { border-color: var(--lilac-line); }
 .signup .tile { margin-bottom: 1rem; }
 
 /* ---------- Blog ---------- */

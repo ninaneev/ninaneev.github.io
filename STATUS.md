@@ -1,5 +1,10 @@
 # STATUS.md
 
+## 2026-10-14 · circle/course removed, Daybrief in testing (branch feature/link-in-bio)
+
+- Deleted `community.html`; removed the course section from `package-it.html` (and its "Then" day card) and the course note in `thanks.html`; dropped `course` and `community` from backend `SOURCES` (validate.ts, test updated). Edge functions need redeploy for that to take effect.
+- Daybrief: no price anywhere on the site. Hub chip "In testing", page hero and closing show "I'm using it myself first" with a "Tell me when it's ready" mailto; buy boxes, buy bar and the checkout/refund/updates FAQs removed. `SALES_OPEN` stays false. Stripe lookup key `daybrief_eur_347` left untouched in the backend.
+
 ## 2026-10-13 (night) · ebooks pass (branch feature/link-in-bio, uncommitted)
 
 - New pages: `ai-edge.html` (€27) and `package-it.html` (€7) in the Daybrief design language: hero with CSS cover on a tilt stage, buy box gated by `EBOOKS_OPEN` (false = "Opens soon · get notified", source ebooks-waitlist; true = POST nina-checkout {product}), what's inside cards, FAQ, closing buy box, phone buy bar. Package It shows the 7 days and ends with the free course waitlist (source course, opens 5 February 2027).

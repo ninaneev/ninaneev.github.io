@@ -6,7 +6,7 @@ Flowity's own functions in the same project.
 
 | Function | Method | Purpose |
 | --- | --- | --- |
-| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Kit upsert + tags `newsletter` and `src-<source>`; returns `download_url` for `day-plan`, `automation-ebook`, `unlocking-ebook` (`/free/files/unlocking-business-potential.pdf`), `sentiment-ebook` (`/free/files/sentiment-synthesis.pdf`); other sources: newsletter, course, community, daybrief-waitlist, ebooks-waitlist |
+| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Kit upsert + tags `newsletter` and `src-<source>`; returns `download_url` for `day-plan`, `automation-ebook`, `unlocking-ebook` (`/free/files/unlocking-business-potential.pdf`), `sentiment-ebook` (`/free/files/sentiment-synthesis.pdf`); other sources: newsletter, daybrief-waitlist, ebooks-waitlist |
 | `nina-checkout` | POST `{product, email?}` | Stripe Checkout Session for `daybrief`, `ai-edge` or `package-it`; 403 `not_on_sale` unless that product is open |
 | `nina-session` | GET `?session_id=cs_...` | `{paid, product, email?, download_url?}`; on paid signs a 7 day URL for the product zip |
 | `nina-stripe-webhook` | POST (Stripe only) | Fulfilment: Kit buyer tag + custom fields with a 30 day download link |
