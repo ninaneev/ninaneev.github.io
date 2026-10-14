@@ -24,39 +24,46 @@
     <a class="back" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All links</a>
   </header>
 
-  <main id="main" class="page">
-    <section class="page-head" data-thanks>
+  <main id="main" class="page thanks-wrap">
+    <section data-thanks>
 
-      <div data-state="email">
+      <div data-state="email" class="page-head">
         <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></span>
         <h1>Check your email</h1>
-        <p class="lede">Your download link and setup guide are in your inbox. Can't find them? Look in spam, or email <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>.</p>
+        <p class="lede">Your download link and setup guide are in your inbox. Can't find them? Look in spam, or email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%20thanks%5D%20Help">nina@flowity.ai</a>.</p>
       </div>
 
-      <div data-state="loading" hidden>
-        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span>
+      <div data-state="loading" class="page-head" hidden>
+        <span class="tile spin"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span>
         <h1>Checking your payment</h1>
         <p class="lede">This takes a second.</p>
       </div>
 
       <div data-state="paid" hidden>
-        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-        <h1>You're in. Welcome to Daybrief.</h1>
-        <p class="lede">Your receipt and download link are also on their way to <strong data-email>your inbox</strong>. Start with video one. The whole setup takes about 60 minutes.</p>
-        <p><a class="btn primary" href="#" data-download hidden download><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download Daybrief</span></a></p>
-        <p class="form-note">One of the first 10 buyers? Your setup call invite comes by email.</p>
+        <div class="page-head">
+          <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h1>You're in. Welcome to Daybrief.</h1>
+          <p class="lede">Your receipt and download link are also on their way to <strong data-email>your inbox</strong>.</p>
+          <p><a class="btn primary" href="#" data-download hidden download><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download Daybrief</span></a></p>
+        </div>
+        <ol class="steps" aria-label="What happens next">
+          <li><h3>Pick your edition</h3><p>Make is the easiest start for most people. Claude if you live in Claude Code, n8n if you already run it.</p><span class="foot">You own all three</span></li>
+          <li><h3>Follow the guide</h3><p>Claude takes about 20 to 30 minutes, Make about 30 to 45, n8n about 45 to 90.</p><span class="foot">Video plus written steps</span></li>
+          <li><h3>Read your first brief</h3><p>Tomorrow morning your day, your priorities and your follow ups are waiting.</p><span class="foot">Before your first coffee</span></li>
+        </ol>
+        <p class="form-note" style="margin-top:1.4rem">Stuck at any step? Email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%20thanks%5D%20Setup%20question">nina@flowity.ai</a>. You have 30 days of email support.</p>
       </div>
 
-      <div data-state="pending" hidden>
+      <div data-state="pending" class="page-head" hidden>
         <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span>
         <h1>Payment not confirmed yet</h1>
-        <p class="lede">Stripe sometimes needs a minute. Refresh this page, or check your email for the receipt. Nothing after 10 minutes? Email <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>.</p>
+        <p class="lede">Stripe sometimes needs a minute. Refresh this page, or check your email for the receipt. Nothing after 10 minutes? Email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%20thanks%5D%20Payment%20pending">nina@flowity.ai</a>.</p>
       </div>
 
-      <div data-state="error" hidden>
+      <div data-state="error" class="page-head" hidden>
         <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5z"/></svg></span>
         <h1>Something went wrong</h1>
-        <p class="lede">I could not check your payment from here. Your receipt and link still go to your email. If they do not arrive, email <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>.</p>
+        <p class="lede">I could not check your payment from here. Your receipt and link still go to your email. If they do not arrive, email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%20thanks%5D%20Payment%20check%20failed">nina@flowity.ai</a>.</p>
       </div>
 
     </section>
@@ -71,8 +78,8 @@
     </ul>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="https://flowity.ai">Work with Flowity</a>
-      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%20thanks%5D%20Hello">nina@flowity.ai</a>
     </div>
     <p class="footer-note">© 2026 Nina Niamh</p>
   </footer>

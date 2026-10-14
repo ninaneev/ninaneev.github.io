@@ -1,5 +1,27 @@
 # STATUS.md
 
+## 2026-10-13 (night) · ebooks pass (branch feature/link-in-bio, uncommitted)
+
+- New pages: `ai-edge.html` (€27) and `package-it.html` (€7) in the Daybrief design language: hero with CSS cover on a tilt stage, buy box gated by `EBOOKS_OPEN` (false = "Opens soon · get notified", source ebooks-waitlist; true = POST nina-checkout {product}), what's inside cards, FAQ, closing buy box, phone buy bar. Package It shows the 7 days and ends with the free course waitlist (source course, opens 5 February 2027).
+- Shared `thanks.html` reads `nina-session` and shows the product name, download and a product note. `daybrief-thanks.html` unchanged and still on `daybrief-session`.
+- `config.js` gains `EBOOKS_OPEN: false`. app.js: gated buy boxes, product checkout, endpoint aware thanks, missing cover PNG fallback.
+- Free page: four gated cards (day plan + three ebooks: automation, unlocking-ebook, sentiment-ebook) and a "Go deeper" section. Hub: one "Ebooks" card (from €7) after Free resources.
+- Verified via file:// with mocked endpoints at 390 and 1440: no horizontal scroll, equal heights, forms post source + referrer, checkout flows land on thanks, both thanks pages render paid.
+- Open: cover PNGs in `assets/covers/` (10-minute-day-plan, do-you-need-automation, unlocking-business-potential, sentiment-synthesis, ai-edge, package-it) and the two new PDFs do not exist yet; copy for the two new free ebooks and the Package It day titles is my draft, Nina to check.
+
+## 2026-10-13 (later) · BRIEF2 frontend pass (branch feature/link-in-bio, uncommitted)
+
+- Daybrief now sells THREE editions in one purchase. `daybrief.html` rebuilt: hero with a morning brief that types itself, CSS only edition picker (Make recommended, Claude, n8n) with per edition runs / setup time / requirements / best for / privacy, per edition privacy panels ("email text goes to"), FAQ rewritten (setup times per edition, "does it run with my computer off"), phone sticky buy bar. Setup call bonus removed everywhere (page, FAQ, thanks page). "About 60 minutes" replaced by 20 to 30 / 30 to 45 / 45 to 90.
+- Hub: course and circle cards removed; newsletter card titled `<span data-nl-name>The Letter</span>` with "A weekly newsletter"; "Work with Flowity" is now "Flowity" / "See clearly." (card and every footer).
+- `community.html` kept but hidden: `noindex`, no links to it anywhere.
+- Free page: CSS book covers for both guides (dark Day Plan, mint to periwinkle automation ebook) that float and tilt; Flowity resources in their own section.
+- Newsletter page: name + "A weekly newsletter", letter card with stamp, three topic cards, "write to me" note.
+- Blog: post card + "next post is on my desk" card that points to the newsletter; post gets a scroll progress bar, drop cap and an end of post signup.
+- About: "What I do now" became three linked cards. Thanks page: lilac confetti on paid, three next steps, no setup call.
+- Sitewide: equal height card grids with bottom pinned footers, `data-reveal` scroll reveals, lilac confetti on subscribe success, `referrer` (page path) sent in every subscribe POST, every mailto has a "[Site · Page] ..." subject.
+- Verified with Playwright at 390 and 1440 (screens in the session scratchpad `shots2/`): no horizontal scroll, no console errors, equal heights and footer alignment measured, reduced motion shows everything static.
+- Open: newsletter name still the placeholder "The Letter"; Make free plan operation count for one brief a day not verified (copy says the free plan covers it); `nina-subscribe` ignores the new `referrer` field until the backend stores it; demo video slot still a TODO; BRIDGE.md still describes the old systems.
+
 ## 2026-10-13 · link-in-bio rebuild (branch feature/link-in-bio, uncommitted frontend work)
 
 - Full frontend redesign: one lilac accent (#9C83F7) on soft black/white, lime and all second accents deleted. Orb + grain kept, new `.lights` layer.

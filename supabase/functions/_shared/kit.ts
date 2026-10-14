@@ -71,10 +71,46 @@ export async function ensureTag(name: string): Promise<number> {
  * NOTE: it does not change the state of an existing subscriber, so someone who
  * unsubscribed stays "cancelled" (correct for consent).
  */
-export async function upsertSubscriber(email: string, firstName: string | undefined, state: "active" | "inactive") {
+export async function upsertSubscriber(
+  email: string,
+  firstName: string | undefined,
+  state: "active" | "inactive",
+): Promise<number | null> {
   const body: Record<string, unknown> = { email_address: email, state };
   if (firstName) body.first_name = firstName;
-  await kit("/subscribers", { method: "POST", body: JSON.stringify(body) }, "upsert_subscriber");
+  const data = (await kit("/subscribers", { method: "POST", body: JSON.stringify(body) }, "upsert_subscriber")) as {
+    subscriber?: { id?: number };
+  } | null;
+  return data?.subscriber?.id ?? null;
+}
+
+// Warm-instance cache of custom field label -> key.
+const fieldCache = new Map<string, string>();
+
+/**
+ * Ensures a custom field exists and returns its key. POST /v4/custom_fields is
+ * idempotent on label: 201 when created, 200 with the existing field otherwise.
+ */
+export async function ensureCustomField(label: string): Promise<string> {
+  const cached = fieldCache.get(label);
+  if (cached) return cached;
+  const data = (await kit("/custom_fields", { method: "POST", body: JSON.stringify({ label }) }, "custom_field")) as {
+    custom_field?: { key?: string };
+  };
+  const key = data.custom_field?.key;
+  if (!key) throw new KitError(500, "custom_field_shape");
+  fieldCache.set(label, key);
+  return key;
+}
+
+/**
+ * Sets custom field values on a subscriber (PUT /v4/subscribers/{id}).
+ * `fields` is keyed by label; each field is created first if missing.
+ */
+export async function setSubscriberFields(subscriberId: number, fields: Record<string, string>) {
+  const byKey: Record<string, string> = {};
+  for (const [label, value] of Object.entries(fields)) byKey[await ensureCustomField(label)] = value;
+  await kit(`/subscribers/${subscriberId}`, { method: "PUT", body: JSON.stringify({ fields: byKey }) }, "set_fields");
 }
 
 export async function tagSubscriber(email: string, tagName: string) {

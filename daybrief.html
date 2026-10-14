@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daybrief · your chief of staff, every morning</title>
-  <meta name="description" content="Daybrief is a personal chief of staff for busy digital entrepreneurs. Every morning: your day, three priorities, meeting prep and follow ups. €347 once.">
+  <meta name="description" content="Daybrief is a personal chief of staff for busy digital entrepreneurs. Every morning: your day, three priorities, meeting prep and follow ups. Three editions, €347 once.">
   <meta name="theme-color" content="#111114">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%239C83F7%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Daybrief · your chief of staff, every morning">
+  <meta property="og:description" content="Your day, three priorities, meeting prep and follow ups, ready before your first coffee. €347 once.">
+  <meta property="og:image" content="https://ninaneev.github.io/assets/nina-smile.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
@@ -27,27 +30,25 @@
 
     <section class="hero-db">
       <div>
-        <span class="label">Daybrief</span>
-        <h1>Wake up knowing exactly what today needs from you</h1>
-        <p class="lede">A personal chief of staff for busy digital entrepreneurs. Each morning it reads your Gmail, Google Calendar and Notion, and leaves one clear brief in your inbox and in Notion.</p>
-        <div class="price-line"><span class="price">€347</span><span class="muted">one time · both editions included</span></div>
-      </div>
-      <div class="hero-buy">
-        <div class="buy" data-buy>
+        <span class="label rise" style="--i:0">Daybrief</span>
+        <h1 class="rise" style="--i:1">Wake up knowing exactly what today needs from you</h1>
+        <p class="lede rise" style="--i:2">A personal chief of staff. Every morning it reads your Gmail, Calendar and Notion and hands you one clear brief.</p>
+        <div class="price-line rise" style="--i:3"><span class="price">€347</span><span class="muted">one time, all three editions included</span></div>
+        <div class="buy rise" style="--i:4" data-buy data-buy-hero id="buy">
           <div data-buy-waitlist>
             <p class="buy-head">Daybrief opens soon</p>
-            <p class="buy-sub">Join the launch list and you get the link the day it opens. The first 10 buyers also get a setup call with me.</p>
+            <p class="buy-sub">Join the launch list and you get the link the day it opens.</p>
             <form class="form" data-source="daybrief-waitlist" data-success="You're on the launch list. I'll email you the day Daybrief opens." novalidate>
-          <div class="form-row">
-            <div class="field">
-              <label for="buy-top-email">Email</label>
-              <input class="input" id="buy-top-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            </div>
-            <button class="btn primary" type="submit">Join the launch list</button>
-          </div>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
-        </form>
+              <div class="form-row">
+                <div class="field">
+                  <label for="buy-top-email">Email</label>
+                  <input class="input" id="buy-top-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                </div>
+                <button class="btn primary" type="submit">Join the launch list</button>
+              </div>
+              <p class="form-status" role="status" aria-live="polite"></p>
+              <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
+            </form>
           </div>
           <div data-buy-checkout hidden>
             <button class="btn primary block" type="button" data-checkout>Get Daybrief · €347</button>
@@ -56,110 +57,216 @@
           </div>
         </div>
       </div>
+
+      <div class="rise" style="--i:3">
+        <figure class="brief" data-brief role="img" aria-label="An example morning brief: today's free gaps, three priorities, meeting prep, one follow up and one signal from the inbox.">
+          <div class="brief-top" aria-hidden="true">
+            <span class="tile"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3v2.5M4.9 7.4l1.6 1.4M19.1 7.4l-1.6 1.4M2.5 15h2.5M19 15h2.5M7 15a5 5 0 0 1 10 0"/><path d="M3 19h18"/></svg></span>
+            <span class="brief-from"><strong>Your Daybrief</strong><span>Tuesday, 06:30</span></span>
+          </div>
+          <div aria-hidden="true">
+            <p class="brief-hello" data-type>Good morning. Here is your Tuesday.</p>
+            <div class="brief-sec"><span class="brief-k">Your day at a glance</span><p data-type>Three meetings. Free from 09:00 to 11:30, and after 16:00.</p></div>
+            <div class="brief-sec"><span class="brief-k">Tackle today</span>
+              <ol>
+                <li data-type>Send Lena the revised proposal, 09:00</li>
+                <li data-type>Draft the onboarding email, 10:15</li>
+                <li data-type>Close the October invoices, 16:00</li>
+              </ol>
+            </div>
+            <div class="brief-sec"><span class="brief-k">Prepare</span><p data-type>14:00 with Marco. Last thread: pricing. You promised him the case study.</p></div>
+            <div class="brief-sec"><span class="brief-k">Follow up</span><p data-type>Ana has waited four days for your reply.</p></div>
+            <div class="brief-sec signal"><span class="brief-k">One signal</span><p data-type>Three clients asked about onboarding this week.</p></div>
+          </div>
+        </figure>
+        <p class="brief-note">An example brief. Yours is written from your own inbox and calendar.</p>
+      </div>
     </section>
 
-    <!-- TODO: 60 to 90 second demo video. Replace this slot with the embed or a <video> with poster + captions. -->
-    <div class="video-slot" role="img" aria-label="Demo video coming soon">
-      <div><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg></span><p>A 90 second walk through of a real morning brief is coming here.</p></div>
-    </div>
-
     <section class="block" aria-labelledby="morning-title">
-      <h2 id="morning-title">What arrives each morning</h2>
-      <p>An email and a Notion page called Today, ready before your first coffee.</p>
-      <ul class="morning">
+      <h2 id="morning-title" data-reveal>What arrives each morning</h2>
+      <p data-reveal>An email and a Notion page called Today, ready before your first coffee.</p>
+      <ul class="morning three" data-reveal-group>
           <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><div><h3>Your day at a glance</h3><p>Today's calendar with the free gaps marked.</p></div></li>
           <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12v.01"/></svg></span><div><h3>Tackle today</h3><p>Three priorities, each placed in a free gap so they actually happen.</p></div></li>
           <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 3.5h6v3H9zM8.5 11h7M8.5 15h5"/></svg></span><div><h3>Prepare</h3><p>For every meeting: who they are, a summary of your last thread, what you promised.</p></div></li>
           <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 8l-5 4.5 5 4.5"/><path d="M5 12.5h9a5 5 0 0 1 5 5V19"/></svg></span><div><h3>Follow up</h3><p>Unanswered emails, promises you made, clients going quiet.</p></div></li>
-          <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><div><h3>One signal</h3><p>A pattern across your inbox you would not spot on your own.</p></div></li>
+          <li class="hi"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><div><h3>One signal</h3><p>A pattern across your inbox you would not spot on your own.</p></div></li>
           <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span><div><h3>Fridays: your weekly review</h3><p>What moved, what slipped, and what next week needs from you.</p></div></li>
       </ul>
+      <!-- TODO: 60 to 90 second demo video. Replace this slot with the embed or a <video> with poster + captions. -->
+      <div class="video-slot" role="img" aria-label="Demo video coming soon" data-reveal>
+        <div><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg></span><p>A 90 second walk through of a real morning brief is coming here.</p></div>
+      </div>
     </section>
 
     <section class="block" aria-labelledby="editions-title">
-      <h2 id="editions-title">Two editions, one purchase</h2>
-      <p>Same brief, two ways to run it. You get both.</p>
-      <div class="editions">
-        <article class="edition">
-          <div class="edition-head"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg></span><h3>Claude edition</h3></div>
-          <p>Runs inside Claude Code. Sit down, type /daybrief, and your brief is written in front of you.</p>
-          <dl>
-            <div><dt>You need</dt><dd>Claude Pro, on Mac or Windows</dd></div>
-            <div><dt>Runs</dt><dd>When you ask for it</dd></div>
-          </dl>
-        </article>
-        <article class="edition">
-          <div class="edition-head"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6.5" r="2.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M8.5 12h3l4-4.5M11.5 12l4 4.5"/></svg></span><h3>n8n edition</h3></div>
-          <p>Runs by itself at 06:30 every day. Uses the free Groq tier by default, or Ollama if you want everything to stay on your machine.</p>
-          <dl>
-            <div><dt>You need</dt><dd>n8n, cloud or self hosted, and a free Groq account</dd></div>
-            <div><dt>Runs</dt><dd>Automatically, every morning at 06:30</dd></div>
-          </dl>
-        </article>
-      </div>
-      <p class="form-note" style="margin-top:1rem">Both editions connect to your Gmail, Google Calendar and Notion. Setup takes about 60 minutes.</p>
+      <h2 id="editions-title" data-reveal>Three editions, one purchase</h2>
+      <p data-reveal>Same brief, three ways to run it. You get all three, so pick the one that fits how you work. Most people start with Make.</p>
+
+      <fieldset class="picker" data-reveal>
+        <legend class="visually-hidden">Choose an edition to see how it runs</legend>
+        <input class="visually-hidden" type="radio" name="edition" id="ed-claude">
+        <input class="visually-hidden" type="radio" name="edition" id="ed-make" checked>
+        <input class="visually-hidden" type="radio" name="edition" id="ed-n8n">
+        <div class="seg">
+          <span class="seg-thumb" aria-hidden="true"></span>
+          <label for="ed-claude"><span class="seg-name">Claude</span><span class="seg-time">20 to 30 min</span></label>
+          <label for="ed-make"><span class="seg-name"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/></svg>Make</span><span class="seg-time">30 to 45 min</span></label>
+          <label for="ed-n8n"><span class="seg-name">n8n</span><span class="seg-time">45 to 90 min</span></label>
+        </div>
+
+        <div class="ed-panels">
+          <article class="ed-panel" data-ed="make" aria-labelledby="ed-make-title">
+            <div>
+              <div class="ed-head">
+                <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.5 9.6 4.5 4.5 0 0 0 7 18.5z"/></svg></span>
+                <h3 id="ed-make-title">Make edition</h3>
+                <span class="chip lilac">Recommended</span>
+              </div>
+              <p class="ed-lead">Runs in Make's cloud on a schedule every morning. Nothing to keep running, and it works with your computer off.</p>
+              <dl class="ed-facts">
+                <div><dt>Runs</dt><dd>Automatically, every morning</dd></div>
+                <div><dt>Setup</dt><dd class="ed-time"><span>About 30 to 45 minutes</span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span></dd></div>
+                <div><dt>You need</dt><dd>A Make account (the free plan covers one brief a day) and a free Groq account for the AI</dd></div>
+                <div><dt>Best for</dt><dd>Most people, especially if you would rather not touch anything technical</dd></div>
+              </dl>
+            </div>
+            <div class="ed-side">
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Your data</h4>
+                <p>Make runs the scenario in your own Make account and sends your email text to the AI provider you choose, Groq by default. I never see any of it.</p>
+              </div>
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>In the box</h4>
+                <p>A Make scenario ready to import, plus a step by step video and written guide.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="ed-panel" data-ed="claude" aria-labelledby="ed-claude-title">
+            <div>
+              <div class="ed-head">
+                <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg></span>
+                <h3 id="ed-claude-title">Claude edition</h3>
+              </div>
+              <p class="ed-lead">Runs inside Claude Code on your computer. Type /daybrief and your brief is written in front of you. No server, no Docker.</p>
+              <dl class="ed-facts">
+                <div><dt>Runs</dt><dd>When you open it and ask. It does not run by itself.</dd></div>
+                <div><dt>Setup</dt><dd class="ed-time"><span>About 20 to 30 minutes</span><span class="meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span></dd></div>
+                <div><dt>You need</dt><dd>Claude Pro, on a Mac or Windows computer</dd></div>
+                <div><dt>Best for</dt><dd>People who already pay for Claude and like starting the day at the keyboard</dd></div>
+              </dl>
+            </div>
+            <div class="ed-side">
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Your data</h4>
+                <p>Everything stays within your own Claude account. No other AI provider and no server of mine is involved.</p>
+              </div>
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>In the box</h4>
+                <p>A Claude Code folder with the /daybrief, /followups, /prep and /friday commands.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="ed-panel" data-ed="n8n" aria-labelledby="ed-n8n-title">
+            <div>
+              <div class="ed-head">
+                <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6.5" r="2.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M8.5 12h3l4-4.5M11.5 12l4 4.5"/></svg></span>
+                <h3 id="ed-n8n-title">n8n edition</h3>
+              </div>
+              <p class="ed-lead">For people who already run n8n. Import the workflows and the brief arrives by itself every morning.</p>
+              <dl class="ed-facts">
+                <div><dt>Runs</dt><dd>Automatically, every morning</dd></div>
+                <div><dt>Setup</dt><dd class="ed-time"><span>About 45 to 90 minutes</span><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span></dd></div>
+                <div><dt>You need</dt><dd>n8n Cloud (paid) or self hosted n8n, which needs Docker or a machine that stays on, plus a free Groq account</dd></div>
+                <div><dt>Best for</dt><dd>People who already have n8n running and want full control</dd></div>
+              </dl>
+            </div>
+            <div class="ed-side">
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Your data</h4>
+                <p>n8n sends your email text to the AI provider you choose, Groq by default. Self host it with Ollama and nothing leaves your machine.</p>
+              </div>
+              <div class="ed-box">
+                <h4><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>In the box</h4>
+                <p>n8n workflows ready to import, plus a step by step video and written guide.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </fieldset>
+      <p class="form-note" style="margin-top:1rem" data-reveal>Every edition connects to your Gmail, Google Calendar and Notion.</p>
     </section>
 
     <section class="block" aria-labelledby="gets-title">
-      <h2 id="gets-title">What you get</h2>
-      <ul class="checks two">
+      <h2 id="gets-title" data-reveal>What you get</h2>
+      <ul class="checks two" data-reveal-group>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A Make scenario, ready to import</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A Claude Code folder with the /daybrief, /followups, /prep and /friday commands</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>n8n workflows, ready to import</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>The Notion “Today” template</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Six setup videos and a written guide</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Setup videos and a written guide for every edition</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A prompt library to tune the brief to you</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>A troubleshooting page for the usual snags</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>30 days of email support, then the docs</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>12 months of updates</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>30 days of email support, then the docs, and 12 months of updates</span></li>
       </ul>
-      <div class="bonus">
-        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.5l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5V19a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.5 6.1 1.5 1.5 0 0 1 5 4.5z"/></svg></span>
-        <p><strong>First 10 buyers:</strong> a 30 minute setup call with me. We get your Daybrief running together.</p>
-      </div>
     </section>
 
     <section class="block" aria-labelledby="trust-title">
-      <h2 id="trust-title">Your data stays yours</h2>
-      <div class="split">
+      <h2 id="trust-title" data-reveal>Your data stays yours</h2>
+      <p data-reveal>Daybrief runs on your own accounts. I never see your email, your calendar or your notes. Here is exactly where your email text goes in each edition.</p>
+      <div class="split three" data-reveal-group>
         <div class="panel">
-          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>Privacy</h3>
-          <p>Daybrief runs on your own accounts. I never see your email, your calendar or your notes.</p>
-          <p>The n8n edition sends email text to the AI provider you pick. Choose Ollama and nothing leaves your machine.</p>
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg>Claude edition</h3>
+          <p>Your email is read by Claude, inside your own Claude account, on your own computer.</p>
+          <p class="foot">Email text goes to: <b>your Claude account only</b></p>
         </div>
         <div class="panel">
-          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5z"/></svg>Support</h3>
-          <p>30 days of email support from me, then the docs and the troubleshooting page.</p>
-          <p>Write to <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>. I answer myself.</p>
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.5 9.6 4.5 4.5 0 0 0 7 18.5z"/></svg>Make edition</h3>
+          <p>Make runs the scenario in your Make account and sends email text to the AI provider you pick.</p>
+          <p class="foot">Email text goes to: <b>Make and your AI provider</b></p>
+        </div>
+        <div class="panel">
+          <h3><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6.5" r="2.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M8.5 12h3l4-4.5M11.5 12l4 4.5"/></svg>n8n edition</h3>
+          <p>n8n sends email text to the AI provider you pick. Self hosted with Ollama, nothing leaves your machine.</p>
+          <p class="foot">Email text goes to: <b>your AI provider, or nowhere</b></p>
         </div>
       </div>
+      <p class="support-line" data-reveal>Stuck? You get 30 days of email support from me. Write to <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Question">nina@flowity.ai</a>, I answer myself.</p>
     </section>
 
     <section class="block" aria-labelledby="faq-title">
-      <h2 id="faq-title">Questions</h2>
-      <div class="faq">
+      <h2 id="faq-title" data-reveal>Questions</h2>
+      <div class="faq" data-reveal-group>
           <details>
             <summary>Which edition fits me?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>Pick the Claude edition if you already pay for Claude Pro and like sitting down and typing /daybrief. Pick the n8n edition if you want the brief to arrive by itself at 06:30 without opening anything. You get both, so you can try each and keep the one you use.</p></div>
+            <div class="answer"><p>Start with Make if you want the brief to arrive by itself and you would rather not touch anything technical. Pick Claude if you already pay for Claude Pro and like typing /daybrief at your desk. Pick n8n if you already run n8n. You get all three, so you can switch any time.</p></div>
           </details>
           <details>
             <summary>How long does setup take?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>About 60 minutes. Six short videos and a written guide walk you through every step.</p></div>
+            <div class="answer"><p>Claude edition: about 20 to 30 minutes. Make edition: about 30 to 45 minutes. n8n edition: about 45 to 90 minutes. A video and a written guide walk you through every step.</p></div>
+          </details>
+          <details>
+            <summary>Does it run when my computer is off?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="answer"><p>The Make edition and n8n Cloud do, because they run in the cloud. Self hosted n8n needs a machine that stays on. The Claude edition runs when you open Claude Code and ask for your brief.</p></div>
           </details>
           <details>
             <summary>Do I need to know how to code?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>No. You copy a folder or import a workflow, connect your accounts and paste a couple of keys. The videos show every click.</p></div>
+            <div class="answer"><p>No. You import a scenario or a workflow, or copy a folder, then connect your accounts and paste a couple of keys. The videos show every click.</p></div>
           </details>
           <details>
             <summary>Is this a subscription?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>No. €347, once. You keep using your own tools: Claude Pro for the Claude edition, or n8n plus a free Groq account for the n8n edition.</p></div>
+            <div class="answer"><p>No. €347, once. You keep using your own tools: Claude Pro for the Claude edition, a Make account and a free Groq account for the Make edition, or n8n plus a free Groq account for the n8n edition.</p></div>
           </details>
           <details>
             <summary>Can you see my email?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>No. Daybrief runs on your own accounts and I never see your data. The n8n edition sends email text to the AI provider you choose. If you want nothing to leave your machine, run it with Ollama.</p></div>
+            <div class="answer"><p>No. Daybrief runs on your own accounts and I never see your data. The Claude edition stays within your Claude account. The Make and n8n editions send email text to the AI provider you choose. If you want nothing to leave your machine, self host n8n with Ollama.</p></div>
           </details>
           <details>
             <summary>What if I get stuck?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>Email me. You get 30 days of email support, plus the troubleshooting page and the docs after that. The first 10 buyers also get a 30 minute setup call.</p></div>
+            <div class="answer"><p>Email me. You get 30 days of email support, then the troubleshooting page and the docs.</p></div>
           </details>
           <details>
             <summary>Can I get a refund?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
@@ -167,39 +274,45 @@
           </details>
           <details>
             <summary>Do updates cost extra?<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <div class="answer"><p>No. Updates for 12 months are included.</p></div>
+            <div class="answer"><p>No. Updates for 12 months are included, for all three editions.</p></div>
           </details>
       </div>
     </section>
 
-    <section class="closing" aria-labelledby="close-title">
+    <section class="closing" id="get" aria-labelledby="close-title" data-reveal>
+      <div class="sunrise" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path class="ray" d="M12 3v2.5M4.9 7.4l1.6 1.4M19.1 7.4l-1.6 1.4M2.5 15h2.5M19 15h2.5"/><path d="M7 15a5 5 0 0 1 10 0"/><path d="M3 19h18"/></svg></div>
       <h2 id="close-title">Start tomorrow with a plan</h2>
-      <p>€347 once. Both editions, the setup videos and a year of updates.</p>
-      <div class="buy" data-buy>
+      <p>€347 once. All three editions, the setup guides and a year of updates.</p>
+      <div class="buy" data-buy data-buy-end>
           <div data-buy-waitlist>
             <p class="buy-head">Daybrief opens soon</p>
-            <p class="buy-sub">Join the launch list and you get the link the day it opens. The first 10 buyers also get a setup call with me.</p>
+            <p class="buy-sub">Join the launch list and you get the link the day it opens.</p>
             <form class="form" data-source="daybrief-waitlist" data-success="You're on the launch list. I'll email you the day Daybrief opens." novalidate>
-          <div class="form-row">
-            <div class="field">
-              <label for="buy-bottom-email">Email</label>
-              <input class="input" id="buy-bottom-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-            </div>
-            <button class="btn primary" type="submit">Join the launch list</button>
-          </div>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
-        </form>
+              <div class="form-row">
+                <div class="field">
+                  <label for="buy-bottom-email">Email</label>
+                  <input class="input" id="buy-bottom-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                </div>
+                <button class="btn primary" type="submit">Join the launch list</button>
+              </div>
+              <p class="form-status" role="status" aria-live="polite"></p>
+              <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
+            </form>
           </div>
           <div data-buy-checkout hidden>
             <button class="btn primary block" type="button" data-checkout>Get Daybrief · €347</button>
             <p class="form-status" role="status" aria-live="polite"></p>
             <p class="form-note">One payment, no subscription. Secure checkout by Stripe. EU buyers are asked to agree to immediate access, which waives the 14 day withdrawal right for digital content.</p>
           </div>
-        </div>
+      </div>
     </section>
 
   </main>
+
+  <div class="buybar" data-buybar aria-hidden="true">
+    <span class="buybar-text"><strong>Daybrief</strong><span>€347 once</span></span>
+    <a class="btn primary" href="#get" data-buybar-cta tabindex="-1">Join the launch list</a>
+  </div>
 
   <footer class="footer">
     <ul class="socials" aria-label="Social profiles">
@@ -210,8 +323,8 @@
     </ul>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="https://flowity.ai">Work with Flowity</a>
-      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Daybrief%5D%20Hello">nina@flowity.ai</a>
     </div>
     <p class="footer-note">© 2026 Nina Niamh</p>
   </footer>

@@ -14,4 +14,7 @@ export function stripe(): Stripe {
   return client;
 }
 
+/** Deno has no Node crypto: webhook signatures are verified with WebCrypto. */
+export const cryptoProvider = Stripe.createSubtleCryptoProvider();
+
 export { Stripe };

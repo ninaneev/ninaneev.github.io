@@ -1,126 +1,179 @@
 # Backend: Supabase Edge Functions
 
-Three Deno functions live in `supabase/functions/` and deploy to the **Flowity** Supabase project
-(`yrqbzaqbracrgaxzhyxr`). Names are prefixed (`nina-`, `daybrief-`) and do not clash with any
-existing Flowity function (checked against flowity-executive-hub/supabase/functions on 2026-10-13).
+Deno functions in `supabase/functions/` deploy to the **Flowity** Supabase project
+(`yrqbzaqbracrgaxzhyxr`). Names are prefixed (`nina-`, `daybrief-`) so they never clash with
+Flowity's own functions in the same project.
 
 | Function | Method | Purpose |
 | --- | --- | --- |
-| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Kit upsert + tags `newsletter` and `src-<source>`; returns `download_url` for `day-plan` / `automation-ebook` |
-| `daybrief-checkout` | POST `{email?}` | Stripe Checkout Session for the `daybrief_eur_347` price; 403 `not_on_sale` unless `SALES_OPEN=true` |
-| `daybrief-session` | GET `?session_id=cs_...` | `{paid, email?, download_url?}`; on paid signs a 7 day URL for `daybrief/daybrief-v1.zip` and tags the buyer `daybrief-buyer` in Kit |
+| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Kit upsert + tags `newsletter` and `src-<source>`; returns `download_url` for `day-plan`, `automation-ebook`, `unlocking-ebook` (`/free/files/unlocking-business-potential.pdf`), `sentiment-ebook` (`/free/files/sentiment-synthesis.pdf`); other sources: newsletter, course, community, daybrief-waitlist, ebooks-waitlist |
+| `nina-checkout` | POST `{product, email?}` | Stripe Checkout Session for `daybrief`, `ai-edge` or `package-it`; 403 `not_on_sale` unless that product is open |
+| `nina-session` | GET `?session_id=cs_...` | `{paid, product, email?, download_url?}`; on paid signs a 7 day URL for the product zip |
+| `nina-stripe-webhook` | POST (Stripe only) | Fulfilment: Kit buyer tag + custom fields with a 30 day download link |
+| `daybrief-checkout` | POST `{email?}` | Legacy alias of `nina-checkout` pinned to `daybrief` |
+| `daybrief-session` | GET `?session_id=cs_...` | Legacy alias of `nina-session`, only answers for Daybrief sessions |
 
 Errors are always `{ "ok": false, "error": "<code>" }` with no upstream details. CORS allows
-`https://ninaneev.github.io` and `http://localhost:*` / `http://127.0.0.1:*` only.
+`https://ninaneev.github.io` and `http://localhost:*` / `http://127.0.0.1:*` only (the webhook
+has no CORS, Stripe calls it server to server).
+
+Products (`supabase/functions/_shared/products.ts`):
+
+| Slug | Stripe lookup key | Opens when | Cancel page |
+| --- | --- | --- | --- |
+| `daybrief` | `daybrief_eur_347` | `SALES_OPEN=true` | `daybrief.html` |
+| `ai-edge` | `ai_edge_eur_27` | `EBOOKS_OPEN=true` | `ai-edge.html` |
+| `package-it` | `package_it_eur_7` | `EBOOKS_OPEN=true` | `package-it.html` |
+
+Every session gets `metadata.product=<slug>` and `metadata.seller=nina`, success URL
+`https://ninaneev.github.io/thanks.html?session_id={CHECKOUT_SESSION_ID}`. The Stripe account is
+Flowity's, so the session endpoint and the webhook ignore anything without one of these slugs
+(Flowity's own webhook only acts on `mode=subscription`, so it ignores these one time sales).
+Note: `daybrief-checkout` now also returns to `thanks.html`, so publish the new frontend before
+opening Daybrief sales.
 
 ## 1. Secrets (Nina sets these herself)
 
-Never paste values into chat or commit them. From the repo root:
+Already set: `KIT_API_KEY`, `STRIPE_SECRET_KEY`, `SALES_OPEN`. `SUPABASE_URL` and
+`SUPABASE_SERVICE_ROLE_KEY` are injected by the edge runtime. New ones:
 
-```bash
-supabase secrets set KIT_API_KEY=... STRIPE_SECRET_KEY=... SALES_OPEN=false --project-ref yrqbzaqbracrgaxzhyxr
-# optional, enables double opt-in (see section 5):
-supabase secrets set KIT_FORM_ID=... --project-ref yrqbzaqbracrgaxzhyxr
+| Secret | Value | Where |
+| --- | --- | --- |
+| `EBOOKS_OPEN` | `true` or `false` | Dashboard or CLI (not sensitive) |
+| `NINA_STRIPE_WEBHOOK_SECRET` | the `whsec_...` signing secret from step 3 | **Dashboard only** |
+
+Set secrets in Supabase Dashboard > Project `yrqbzaqbracrgaxzhyxr` > Edge Functions > Secrets
+(Add new secret). Do not paste the webhook signing secret into a terminal, chat or file.
+
+**Do not use the names `stripe-webhook` or `STRIPE_WEBHOOK_SECRET`.** Both already exist in this
+project for Flowity billing (`flowity-executive-hub/supabase/functions/stripe-webhook`).
+Deploying a function with that name or overwriting that secret would break Flowity's live
+subscriptions. That is why ours is `nina-stripe-webhook` with `NINA_STRIPE_WEBHOOK_SECRET`.
+
+## 2. Storage bucket `products`
+
+Dashboard > Storage > New bucket: name `products`, **Private** (public off). No RLS policies:
+only the service role signs URLs. Layout:
+
+```
+products/
+  daybrief/daybrief-v1.zip
+  ai-edge/ai-edge-v1.zip
+  package-it/package-it-v1.zip
 ```
 
-- `KIT_API_KEY`: Kit > Settings > Developer > **v4** API key (not the v3 key/secret).
-- `STRIPE_SECRET_KEY`: prefer a **restricted key** (`rk_...`) with write on Checkout Sessions and
-  read on Prices. Use the test mode / sandbox key first.
-- `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected automatically by the edge runtime.
+To ship a new version, upload `<slug>-v2.zip` and change `productObject()` in
+`_shared/products.ts` (old links keep working until they expire). The legacy layout (bucket
+`daybrief`, object `daybrief-v1.zip`) is still used as a fallback for Daybrief only, so moving
+the file can happen any time. If an object is missing, `nina-session` returns `paid: true`
+without a link and the webhook tags the buyer without a `dl_` field (logged as an error).
 
-Caution: secrets are project wide. `STRIPE_SECRET_KEY` may already exist for Flowity's own
-functions (`create-checkout-session`, `stripe-webhook`). Check first with
-`supabase secrets list --project-ref yrqbzaqbracrgaxzhyxr` (shows names and digests only). If it
-exists and is Flowity's key, Daybrief will sell through Flowity's Stripe account. That works
-(sessions are filtered by `metadata.product=daybrief`), but if Daybrief should go to a different
-account, rename the variable in `supabase/functions/_shared/stripe.ts` (e.g. `DAYBRIEF_STRIPE_KEY`)
-before setting it, so Flowity's checkout is not overwritten.
+## 3. Stripe webhook endpoint (Nina, Stripe Dashboard)
 
-## 2. Stripe product
+1. Stripe Dashboard (Flowity account, live mode) > Developers > Webhooks > Add endpoint.
+2. Endpoint URL: `https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1/nina-stripe-webhook`
+3. Events: `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Nothing
+   else.
+4. Save, then Reveal the signing secret and paste it into Supabase Secrets as
+   `NINA_STRIPE_WEBHOOK_SECRET` (Dashboard, step 1). Redeploy `nina-stripe-webhook` or wait for a
+   cold start.
+5. Test: Stripe > the endpoint > Send test event `checkout.session.completed`. Expected 200 with
+   `ignored: not_ours` (the fixture has no product metadata). A real paid session returns
+   `{received:true}` and the buyer appears in Kit with the tag and fields.
 
-In the Stripe Dashboard (test mode first): create product "Daybrief", one-time price EUR 347.00,
-**lookup key `daybrief_eur_347`**. Repeat in live mode before launch. Notes:
+The webhook fulfils only paid sessions (async methods such as SEPA complete unpaid and are
+fulfilled on `async_payment_succeeded`). Order per sale: sign a 30 day URL, upsert the buyer in
+Kit, set fields, then apply the tag. On any Kit error it returns 500 and Stripe retries; every
+step is safe to repeat. Logs contain event ids and slugs only.
 
-- `automatic_tax` is **off**. Price is charged as is; VAT handling (OSS registration, tax inclusive
-  pricing) is Nina's call before go-live. Turn it on only after a Stripe Tax registration exists.
-- `consent_collection.terms_of_service` is **not used**: it requires an account level Terms of
-  Service URL in Dashboard > Settings > Public details. The EU 14 day withdrawal waiver text is
-  shown via `custom_text.submit` instead. If a ToS URL gets set later, consider switching to the
-  required checkbox for a stronger consent record.
-- `invoice_creation` is on (buyer gets an invoice PDF), promotion codes allowed.
+## 4. Kit delivery automation (one per product)
 
-## 3. Storage bucket
+The webhook sets these custom fields (created automatically on first sale if missing) before
+tagging:
 
-Dashboard > Storage > New bucket: name `daybrief`, **Private** (public off). Upload
-`daybrief-v1.zip` at the bucket root. No RLS policies needed: only the service role signs URLs.
-If the object is missing, `daybrief-session` still returns `paid: true`, just without a link.
+| Product | Tag | Fields |
+| --- | --- | --- |
+| Daybrief | `daybrief-buyer` | `purchased_daybrief_at`, `dl_daybrief` |
+| AI Edge | `ai-edge-buyer` | `purchased_ai_edge_at`, `dl_ai_edge` |
+| Package It | `package-it-buyer` | `purchased_package_it_at`, `dl_package_it` |
 
-## 4. Deploy (from the repo root)
+Recipe (Kit > Automations > New automation), repeat per product:
 
-```bash
-supabase functions deploy nina-subscribe   --project-ref yrqbzaqbracrgaxzhyxr --no-verify-jwt
-supabase functions deploy daybrief-checkout --project-ref yrqbzaqbracrgaxzhyxr --no-verify-jwt
-supabase functions deploy daybrief-session  --project-ref yrqbzaqbracrgaxzhyxr --no-verify-jwt
+1. Entry point: "Is added to a tag" > `<slug>-buyer` (create the tag by hand first if no sale
+   has happened yet, the webhook also creates it).
+2. Step: Email. Subject e.g. "Your Daybrief download". Body with a button whose link is
+   `{{ subscriber.dl_daybrief }}` (`dl_ai_edge`, `dl_package_it` for the ebooks), plus a line
+   that the link works for 30 days and to reply for a fresh one.
+3. Publish the automation. Exclude `*-buyer` tags from newsletter broadcasts unless they also
+   carry `newsletter`.
+
+Kit only emails subscribers who are not unsubscribed. A buyer who unsubscribed earlier still
+gets the thanks page link, but not the email; resend by hand if they ask.
+
+## 5. Deploy (PowerShell, from the repo root)
+
+```powershell
+$ref = "yrqbzaqbracrgaxzhyxr"
+foreach ($fn in @("nina-checkout", "nina-session", "nina-stripe-webhook", "daybrief-checkout", "daybrief-session")) {
+  supabase functions deploy $fn --project-ref $ref --no-verify-jwt
+}
 ```
 
-`--no-verify-jwt` is required: the static site calls these without a Supabase key.
+Add `nina-subscribe` to the list only when it changed. `--no-verify-jwt` is required: the static
+site and Stripe call these without a Supabase key (the webhook authenticates by Stripe
+signature instead).
 
-Local checks (Deno via npx works if deno is not installed):
+Local checks (Deno via npx works without a Deno install):
 
-```bash
+```powershell
 cd supabase/functions
-npx -y deno check nina-subscribe/index.ts daybrief-checkout/index.ts daybrief-session/index.ts
+npx -y deno check nina-subscribe/index.ts nina-checkout/index.ts nina-session/index.ts nina-stripe-webhook/index.ts daybrief-checkout/index.ts daybrief-session/index.ts
 npx -y deno test _shared/
 ```
 
-## 5. Kit and double opt-in
+## 6. Open or close sales per product
 
-`POST /v4/subscribers` creates subscribers as **active** by default, which skips Kit's
-confirmation email (single opt-in). For EU audiences double opt-in is the safer consent record.
-To enable it: create a Kit form with "Send incentive email" / double opt-in on, and set
-`KIT_FORM_ID`. The function then creates the subscriber as `inactive` and adds them to that form,
-so Kit sends the confirmation; they become active when they click. Tags are applied either way.
-The free PDF download link is returned immediately regardless (not gated on confirmation).
+| To open | Supabase secret | Site |
+| --- | --- | --- |
+| Daybrief (launch 16 Nov 2026) | `SALES_OPEN=true` | `SALES_OPEN: true` in `config.js`, publish |
+| AI Edge and Package It (together) | `EBOOKS_OPEN=true` | whatever flag the frontend uses for the ebook buy buttons |
 
-Existing subscribers who unsubscribed stay unsubscribed (Kit's upsert does not change state).
-Buyers tagged `daybrief-buyer` are created as active subscribers in Kit; exclude that tag from
-newsletter broadcasts unless they also have `newsletter`.
+Set the secret in Dashboard > Edge Functions > Secrets, or from PowerShell:
 
-## 6. Flip sales open (launch, 16 Nov 2026)
+```powershell
+supabase secrets set EBOOKS_OPEN=true --project-ref yrqbzaqbracrgaxzhyxr
+```
 
-1. Live mode price with lookup key `daybrief_eur_347` exists; live key set as `STRIPE_SECRET_KEY`.
-2. `supabase secrets set SALES_OPEN=true --project-ref yrqbzaqbracrgaxzhyxr` (takes effect on the
-   next cold start; redeploying `daybrief-checkout` forces it).
-3. Set `SALES_OPEN: true` in `config.js` at the repo root and publish the site.
+Secrets apply on the next cold start; redeploying `nina-checkout` (and `daybrief-checkout`)
+forces it. To close, set back to `false`. Before opening: the price with the lookup key is
+active in live mode, the zip is in `products/<slug>/`, the webhook endpoint exists and the Kit
+automation is published.
 
-To close again, set both back to `false`.
+## 7. Stripe notes
 
-## 7. Test with Stripe test mode
+- `automatic_tax` is **off**: prices are charged as is. VAT handling (OSS registration, tax
+  inclusive pricing) is Nina's call; turn it on only after a Stripe Tax registration exists.
+- The EU 14 day withdrawal waiver is shown via `custom_text.submit` (per product name), since
+  `consent_collection.terms_of_service` needs an account level ToS URL.
+- `invoice_creation` on, promotion codes allowed. Prefer a restricted key (`rk_...`) with write
+  on Checkout Sessions and read on Prices.
 
-1. Set test key + `SALES_OPEN=true` (test only), deploy.
-2. Open the Daybrief page locally or on the site, click buy. Pay with card `4242 4242 4242 4242`,
-   any future expiry, any CVC, any postcode.
-3. Stripe redirects to `daybrief-thanks.html?session_id=cs_test_...`; the page calls
-   `daybrief-session` and should show the download. Check Kit for the `daybrief-buyer` tag.
-4. Declines: `4000 0000 0000 0002`. 3DS: `4000 0027 6000 3184`.
+## 8. Test
 
-Quick curl checks:
+Use a Stripe sandbox key first (and a sandbox webhook endpoint with its own signing secret).
+Card `4242 4242 4242 4242`, any future expiry, any CVC. Declines `4000 0000 0000 0002`, 3DS
+`4000 0027 6000 3184`.
 
-```bash
-FN=https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1
-curl -s -X POST $FN/nina-subscribe -H "Origin: http://localhost:8000" -H "Content-Type: application/json" \
-  -d '{"email":"you+test@example.com","source":"day-plan"}'
-curl -s -X POST $FN/daybrief-checkout -H "Content-Type: application/json" -d '{}'
-curl -s "$FN/daybrief-session?session_id=cs_test_..."
+```powershell
+$FN = "https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1"
+Invoke-RestMethod -Method Post -Uri "$FN/nina-checkout" -ContentType "application/json" -Body '{"product":"ai-edge"}'
+Invoke-RestMethod -Uri "$FN/nina-session?session_id=cs_test_..."
 ```
 
 ## Known gaps
 
-- **No webhook yet.** Fulfilment (signed link + Kit tag) happens when the thanks page loads. A
-  buyer who closes the tab before the redirect paid but has no link until they contact Nina.
-  Recommended next step: a `daybrief-webhook` function on `checkout.session.completed` and
-  `checkout.session.async_payment_succeeded` (gated on `payment_status === "paid"`) that tags the
-  buyer in Kit, with a Kit automation on `daybrief-buyer` emailing the download page.
-- Anyone holding a paid `session_id` can mint fresh 7 day links. Acceptable for a €347 digital
-  download; rotate the object name (`daybrief-v2.zip`) if links leak.
+- Anyone holding a paid `session_id` can mint fresh 7 day links. Acceptable for digital
+  downloads; bump the object version if links leak.
+- The webhook dedupe cache is per warm instance; correctness relies on Kit calls being
+  idempotent, which they are (upsert, set field, tag).
 - No rate limiting beyond the honeypot field `company` and body size caps.

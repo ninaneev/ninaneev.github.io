@@ -3,6 +3,8 @@ import { assert, assertEquals } from "jsr:@std/assert@1.0.13";
 import { corsHeaders, isAllowedOrigin } from "./cors.ts";
 import {
   cleanFirstName,
+  DOWNLOADS,
+  isSource,
   isCheckoutSessionId,
   normalizeEmail,
   parseSubscribeBody,
@@ -70,4 +72,12 @@ Deno.test("checkout session id format", () => {
   assert(!isCheckoutSessionId("pi_test_a1B2c3D4e5F6g7H8"));
   assert(!isCheckoutSessionId("cs_test_a1B2c3D4e5F6g7H8/../x"));
   assert(!isCheckoutSessionId(null));
+});
+
+Deno.test("new ebook sources: accepted, downloads, tags", () => {
+  for (const s of ["unlocking-ebook", "sentiment-ebook", "ebooks-waitlist"]) assert(isSource(s));
+  assertEquals(DOWNLOADS["unlocking-ebook"], "/free/files/unlocking-business-potential.pdf");
+  assertEquals(DOWNLOADS["sentiment-ebook"], "/free/files/sentiment-synthesis.pdf");
+  assertEquals(DOWNLOADS["ebooks-waitlist"], undefined);
+  assertEquals(tagsForSource("ebooks-waitlist"), ["newsletter", "src-ebooks-waitlist"]);
 });

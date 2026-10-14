@@ -23,40 +23,61 @@
     <a class="back" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All links</a>
   </header>
 
-  <main id="main" class="page">
-    <header class="page-head">
-      <span class="label">Newsletter</span>
-      <h1>A letter from my desk, once a week</h1>
-      <p class="lede">What I am building, what worked and what didn't, written to you like I would write to a friend.</p>
-    </header>
+  <main id="main" class="page wide">
+    <section class="nl-hero">
+      <div>
+        <span class="label rise" style="--i:0">Newsletter</span>
+        <h1 class="rise" style="--i:1"><span data-nl-name>The Letter</span></h1>
+        <p class="nl-kind rise" style="--i:2">A weekly newsletter</p>
+        <p class="lede rise" style="--i:3">What I am building, what worked and what didn't, written to you the way I would write to a friend.</p>
 
-    <section class="signup" aria-label="Subscribe">
-      <form class="form" data-source="newsletter" data-success="You're in. The next letter lands in your inbox." novalidate>
-          <div class="field">
-            <label for="news-name">First name <span class="opt">(optional)</span></label>
-            <input class="input" id="news-name" name="first_name" type="text" autocomplete="given-name">
-          </div>
-          <div class="form-row">
+        <section class="signup rise" style="--i:4" aria-label="Subscribe">
+          <form class="form" data-source="newsletter" data-success="You're in. The next letter lands in your inbox." novalidate>
             <div class="field">
-              <label for="news-email">Email</label>
-              <input class="input" id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+              <label for="news-name">First name <span class="opt">(optional)</span></label>
+              <input class="input" id="news-name" name="first_name" type="text" autocomplete="given-name">
             </div>
-            <button class="btn primary" type="submit">Subscribe</button>
-          </div>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <p class="form-note">One email a week. Unsubscribe any time.</p>
-          <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
-        </form>
+            <div class="form-row">
+              <div class="field">
+                <label for="news-email">Email</label>
+                <input class="input" id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+              </div>
+              <button class="btn primary" type="submit">Subscribe</button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <p class="form-note">One email a week. Unsubscribe any time.</p>
+            <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
+          </form>
+        </section>
+      </div>
+
+      <figure class="letter" aria-label="What a typical letter covers">
+        <span class="stamp" aria-hidden="true">once<br>a week</span>
+        <p class="letter-to">To: you. From: Nina</p>
+        <h2>In a typical <em>letter</em></h2>
+        <ol>
+          <li>What I shipped this week, and what I didn't</li>
+          <li>One real number, even when it is small</li>
+          <li>A tool or setup I am using right now</li>
+          <li>A signal I noticed in my own work</li>
+        </ol>
+        <p class="letter-sign">Nina</p>
+      </figure>
     </section>
 
     <section class="block" aria-labelledby="inside-title">
-      <h2 id="inside-title">What you'll read</h2>
-      <ul class="morning">
-          <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3.5l2.5-6 4 12 3-8 1.5 2H21"/></svg></span><div><h3>Building in public</h3><p>The real numbers, the mistakes and the decisions as they happen.</p></div></li>
-          <li><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg></span><div><h3>AI for solo founders</h3><p>Tools and setups that give one person the leverage of a small team.</p></div></li>
-          <li class="span"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><div><h3>Reading your own signals</h3><p>How to notice what your work and your life are already telling you.</p></div></li>
+      <h2 id="inside-title" data-reveal>What you'll read</h2>
+      <ul class="cards three" data-reveal-group>
+        <li><div class="card"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3.5l2.5-6 4 12 3-8 1.5 2H21"/></svg></span><h3>Building in public</h3><p>The real numbers, the mistakes and the decisions as they happen.</p></div></li>
+        <li><div class="card"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 10l3 2.5L7 15M12.5 15H17"/></svg></span><h3>AI for solo founders</h3><p>Tools and setups that give one person the leverage of a small team.</p></div></li>
+        <li><div class="card"><span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><h3>Reading your own signals</h3><p>How to notice what your work and your life are already telling you.</p></div></li>
       </ul>
     </section>
+
+    <div class="hello-note" data-reveal>
+      <p>Rather say hello first? I read every reply.</p>
+      <a class="btn" href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Newsletter%5D%20Hello">Write to me</a>
+    </div>
   </main>
 
   <footer class="footer">
@@ -68,8 +89,8 @@
     </ul>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="https://flowity.ai">Work with Flowity</a>
-      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Newsletter%5D%20Hello">nina@flowity.ai</a>
     </div>
     <p class="footer-note">© 2026 Nina Niamh</p>
   </footer>

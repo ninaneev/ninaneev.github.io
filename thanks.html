@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank you · Nina Niamh</title>
+  <meta name="description" content="Your purchase.">
+  <meta name="theme-color" content="#111114">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%239C83F7%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Thank you · Nina Niamh">
+  <meta property="og:description" content="Your purchase.">
+  <meta property="og:image" content="https://ninaneev.github.io/assets/nina-smile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="lights" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="assets/nina-smile.jpg" alt="" width="36" height="36">Nina Niamh</a>
+    <a class="back" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All links</a>
+  </header>
+
+  <main id="main" class="page thanks-wrap">
+    <section data-thanks data-endpoint="nina-session">
+
+      <div data-state="email" class="page-head">
+        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></span>
+        <h1>Check your email</h1>
+        <p class="lede">Your download link is in your inbox. Can't find it? Look in spam, or email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Thanks%5D%20Help">nina@flowity.ai</a>.</p>
+      </div>
+
+      <div data-state="loading" class="page-head" hidden>
+        <span class="tile spin"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span>
+        <h1>Checking your payment</h1>
+        <p class="lede">This takes a second.</p>
+      </div>
+
+      <div data-state="paid" hidden>
+        <div class="page-head">
+          <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h1>You're in. <span data-product>Your download</span> is yours.</h1>
+          <p class="lede">Your receipt and download link are also on their way to <strong data-email>your inbox</strong>. The link works for 7 days, so save the file somewhere safe.</p>
+          <p><a class="btn primary" href="#" data-download hidden download><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download <span data-product>it</span></span></a></p>
+          <div class="thanks-extra">
+            <p class="form-note" data-product-extra="ai-edge" hidden>Start with the workbook next to your inbox. The first signal usually shows up in the first hour.</p>
+            <p class="form-note" data-product-extra="package-it" hidden>Day 1 takes about an hour. When your week is done, the free course opens on 5 February 2027: <a href="package-it.html#course">join the waitlist</a>.</p>
+            <p class="form-note" data-product-extra="daybrief" hidden>Start with the setup guide for the edition you picked. Make is the easiest start.</p>
+          </div>
+        </div>
+        <p class="form-note">Stuck? Email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Thanks%5D%20Download%20question">nina@flowity.ai</a> and I will sort it out.</p>
+      </div>
+
+      <div data-state="pending" class="page-head" hidden>
+        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 13.7-5L20 8.5"/><path d="M20 3.5v5h-5"/><path d="M20 13a8 8 0 0 1-13.7 5L4 15.5"/><path d="M4 20.5v-5h5"/></svg></span>
+        <h1>Payment not confirmed yet</h1>
+        <p class="lede">Stripe sometimes needs a minute. Refresh this page, or check your email for the receipt. Nothing after 10 minutes? Email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Thanks%5D%20Payment%20pending">nina@flowity.ai</a>.</p>
+      </div>
+
+      <div data-state="error" class="page-head" hidden>
+        <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5z"/></svg></span>
+        <h1>Something went wrong</h1>
+        <p class="lede">I could not check your payment from here. Your receipt and link still go to your email. If they do not arrive, email <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Thanks%5D%20Payment%20check%20failed">nina@flowity.ai</a>.</p>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <ul class="socials" aria-label="Social profiles">
+      <li><a href="https://www.tiktok.com/@nina.neev" aria-label="TikTok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3.2c.5 2.6 2.3 4.3 5 4.5"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/in/ninaneev" aria-label="LinkedIn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5v6M8 7.5v.01M12 16.5v-6M12 13.2c0-1.6 1-2.7 2.4-2.7s2.1.9 2.1 2.6v3.4"/></svg></a></li>
+      <li><a href="https://www.instagram.com/ninaneev" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></svg></a></li>
+      <li><a href="https://github.com/ninaneev" aria-label="GitHub"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li>
+    </ul>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Thanks%5D%20Hello">nina@flowity.ai</a>
+    </div>
+    <p class="footer-note">© 2026 Nina Niamh</p>
+  </footer>
+</body>
+</html>

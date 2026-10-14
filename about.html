@@ -27,29 +27,52 @@
 
     <header class="about-hero">
       <div>
-        <span class="label">About</span>
-        <h1>Nina Niamh <em>Cressoni</em></h1>
-        <p class="lede">Software engineer since 2018, Data Science student, founder of Flowity AI. I build the layer between what people know and what they decide, and I build it in public.</p>
+        <span class="label rise" style="--i:0">About</span>
+        <h1 class="rise" style="--i:1">Nina Niamh <em>Cressoni</em></h1>
+        <p class="lede rise" style="--i:2">Software engineer since 2018, Data Science student, founder of Flowity AI. I build the layer between what people know and what they decide, and I build it in public.</p>
       </div>
       <div class="arch">
         <img src="assets/nina-desk.jpg" alt="Nina Niamh Cressoni at her desk at Flowity AI" width="1254" height="1254">
       </div>
     </header>
 
-    <section class="block prose" aria-labelledby="drives-title">
+    <section class="block prose" aria-labelledby="drives-title" data-reveal>
       <h2 id="drives-title">Companies forget. People too. I refuse to accept that.</h2>
       <p>Every organization I have looked into already knew, somewhere in its documents and conversations, the answer to the question that was hurting it. The knowledge existed. The memory didn't. That gap, between what is known and what is used, is the most expensive thing nobody budgets for. Closing it is what gets me up in the morning.</p>
       <p>I work in public because reading signals honestly is the whole point. If I can't read my own work honestly, I have no business reading yours. So the numbers, the mistakes and the decisions get shared as they happen.</p>
     </section>
 
-    <section class="block prose" aria-labelledby="now-title">
-      <h2 id="now-title">What I do now</h2>
-      <p><strong>Flowity AI</strong> is my company: a premium productized service that reads business signals for B2B SaaS teams. <a href="https://flowity.ai">Work with Flowity</a>.</p>
-      <p><strong>Daybrief</strong> is the chief of staff I built for my own mornings, packaged so you can run it on yours. <a href="daybrief.html">See Daybrief</a>.</p>
-      <p>And every week I write <a href="newsletter.html">a personal letter</a> about what I am building and learning.</p>
+    <section class="block" aria-labelledby="now-title">
+      <h2 id="now-title" data-reveal>What I do now</h2>
+      <ul class="cards three" data-reveal-group>
+        <li>
+          <a class="card" href="https://flowity.ai">
+            <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3.5l2.5-6 4 12 3-8 1.5 2H21"/></svg></span>
+            <h3>Flowity AI</h3>
+            <p>My company: a premium productized service that reads business signals for B2B SaaS teams.</p>
+            <span class="card-foot"><span>Visit Flowity</span><span class="go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="daybrief.html">
+            <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2.5M4.9 7.4l1.6 1.4M19.1 7.4l-1.6 1.4M2.5 15h2.5M19 15h2.5M7 15a5 5 0 0 1 10 0"/><path d="M3 19h18"/></svg></span>
+            <h3>Daybrief</h3>
+            <p>The chief of staff I built for my own mornings, packaged so you can run it on yours.</p>
+            <span class="card-foot"><span>See Daybrief</span><span class="go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="newsletter.html">
+            <span class="tile"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></span>
+            <h3><span data-nl-name>The Letter</span></h3>
+            <p>A weekly newsletter about what I am building and learning, written like a letter to a friend.</p>
+            <span class="card-foot"><span>Read it weekly</span><span class="go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <section class="block prose" aria-labelledby="research-title">
+    <section class="block prose" aria-labelledby="research-title" data-reveal>
       <h2 id="research-title">Research: Executive Signal Synthesis</h2>
       <p>My research looks at how fragmented business signals become structured, explainable decisions. It treats signal synthesis as its own layer between data processing and decision making, in four stages: ingestion, classification, clustering and synthesis. It is published as an open preprint with a prototype implementation.</p>
       <a class="paper" href="https://zenodo.org/records/19120961">
@@ -73,8 +96,8 @@
     </ul>
     <div class="footer-links">
       <a href="about.html">About</a>
-      <a href="https://flowity.ai">Work with Flowity</a>
-      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20About%5D%20Hello">nina@flowity.ai</a>
     </div>
     <p class="footer-note">© 2026 Nina Niamh</p>
   </footer>

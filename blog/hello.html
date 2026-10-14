@@ -17,6 +17,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="lights" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"></div>
 
   <header class="topbar">
     <a class="brand" href="../index.html"><img src="../assets/nina-smile.jpg" alt="" width="36" height="36">Nina Niamh</a>
@@ -40,10 +41,25 @@
           <li>I share real numbers, even the small ones.</li>
           <li>When something does not work, I say so.</li>
         </ul>
-        <p>If you are building something on your own, I hope it helps to see someone else do it in the open. And if you want the weekly version, <a href="../newsletter.html">the letter</a> is where I write it first.</p>
+        <p>If you are building something on your own, I hope it helps to see someone else do it in the open. And if you want the weekly version, <a href="../newsletter.html"><span data-nl-name>The Letter</span></a> is where I write it first.</p>
       </div>
       <div class="post-end">
-        <a class="btn" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All posts</a>
+        <section class="signup" aria-labelledby="post-letter-title">
+          <h2 id="post-letter-title">Liked this? Get <span data-nl-name>The Letter</span></h2>
+          <p>A weekly newsletter. New posts land there first.</p>
+          <form class="form" data-source="newsletter" data-success="You're in. The next letter lands in your inbox." novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="post-email">Email</label>
+                <input class="input" id="post-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+              </div>
+              <button class="btn primary" type="submit">Subscribe</button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+            <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
+          </form>
+        </section>
+        <div><a class="btn" href="index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All posts</a></div>
       </div>
     </article>
   </main>
@@ -57,8 +73,8 @@
     </ul>
     <div class="footer-links">
       <a href="../about.html">About</a>
-      <a href="https://flowity.ai">Work with Flowity</a>
-      <a href="mailto:nina@flowity.ai">nina@flowity.ai</a>
+      <a href="https://flowity.ai">Flowity</a>
+      <a href="mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Blog%5D%20Hello">nina@flowity.ai</a>
     </div>
     <p class="footer-note">© 2026 Nina Niamh</p>
   </footer>
