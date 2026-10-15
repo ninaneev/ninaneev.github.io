@@ -6,10 +6,10 @@ Flowity's own functions in the same project.
 
 | Function | Method | Purpose |
 | --- | --- | --- |
-| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Kit upsert + tags `newsletter` and `src-<source>`; returns `download_url` for `day-plan`, `automation-ebook`, `unlocking-ebook` (`/free/files/unlocking-business-potential.pdf`), `sentiment-ebook` (`/free/files/sentiment-synthesis.pdf`); other sources: newsletter, daybrief-waitlist, ebooks-waitlist |
+| `nina-subscribe` | POST `{email, first_name?, source, company?}` | Resend (Kit dropped 2026-10-15): contact added to the newsletter segment (secret `RESEND_NEWSLETTER_SEGMENT_ID`, plus `RESEND_API_KEY`); 503 `not_configured` if the segment secret is missing; returns `download_url` for `day-plan`, `automation-ebook`, `unlocking-ebook` (`/free/files/unlocking-business-potential.pdf`), `sentiment-ebook` (`/free/files/sentiment-synthesis.pdf`); other sources: newsletter, daybrief-waitlist, ebooks-waitlist |
 | `nina-checkout` | POST `{product, email?}` | Stripe Checkout Session for `daybrief`, `ai-edge` or `package-it`; 403 `not_on_sale` unless that product is open |
 | `nina-session` | GET `?session_id=cs_...` | `{paid, product, email?, download_url?}`; on paid signs a 7 day URL for the product zip |
-| `nina-stripe-webhook` | POST (Stripe only) | Fulfilment: Kit buyer tag + custom fields with a 30 day download link |
+| `nina-stripe-webhook` | POST (Stripe only) | Fulfilment: Kit buyer tag + custom fields with a 30 day download link. STILL KIT: must move to Resend (email the signed link directly) before any paid sale opens |
 | `daybrief-checkout` | POST `{email?}` | Legacy alias of `nina-checkout` pinned to `daybrief` |
 | `daybrief-session` | GET `?session_id=cs_...` | Legacy alias of `nina-session`, only answers for Daybrief sessions |
 | `daybrief-waitlist` | POST `{email, website?, referrer?, company?}` | Resend (not Kit): contact with `website` property in the Daybrief segment, confirmation email from nina@flowity.ai, notification to Nina. See section 9 |

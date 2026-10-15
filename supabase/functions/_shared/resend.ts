@@ -64,7 +64,26 @@ export async function upsertWaitlistContact(email: string, website: string | und
   return "updated" as const;
 }
 
-export type Email = { to: string; subject: string; text: string; html: string; reply_to?: string };
+/**
+ * Newsletter signup (nina-subscribe): create the contact in the newsletter segment, or add an
+ * existing contact to it. first_name is a built-in Resend field, so no property setup is needed.
+ */
+export async function upsertNewsletterContact(email: string, firstName: string | undefined, segmentId: string) {
+  const created = await call("POST", "/contacts", {
+    email,
+    unsubscribed: false,
+    ...(firstName ? { first_name: firstName } : {}),
+    segments: [{ id: segmentId }],
+  });
+  if (created.ok) return "created" as const;
+  const createErr = await failure("create_contact", created);
+  const key = encodeURIComponent(email);
+  const added = await call("POST", `/contacts/${key}/segments/${encodeURIComponent(segmentId)}`);
+  if (!added.ok) throw new Error(`${createErr.message} | ${(await failure("add_segment", added)).message}`);
+  return "updated" as const;
+}
+
+export type Email ={ to: string; subject: string; text: string; html: string; reply_to?: string };
 
 export async function sendEmail(mail: Email): Promise<void> {
   const res = await call("POST", "/emails", { from: FROM, ...mail, to: [mail.to] });

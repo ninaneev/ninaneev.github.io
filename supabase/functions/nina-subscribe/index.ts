@@ -1,8 +1,11 @@
 // POST /nina-subscribe  { email, first_name?, source, company? (honeypot) }
 // -> 200 { ok: true, download_url? } | 400 { ok: false, error } | 502 { ok: false, error: "subscribe_failed" }
+//    503 { ok: false, error: "not_configured" }
+// Resend only (Kit dropped 2026-10-15): every signup joins the newsletter segment
+// (secret RESEND_NEWSLETTER_SEGMENT_ID). Free ebook sources still get their download link back.
 import { handlePreflight, json, jsonError } from "../_shared/cors.ts";
-import { DOWNLOADS, parseSubscribeBody, tagsForSource } from "../_shared/validate.ts";
-import { addToForm, tagSubscriber, upsertSubscriber } from "../_shared/kit.ts";
+import { DOWNLOADS, parseSubscribeBody } from "../_shared/validate.ts";
+import { upsertNewsletterContact } from "../_shared/resend.ts";
 
 const MAX_BODY_BYTES = 4096;
 
@@ -24,19 +27,17 @@ Deno.serve(async (req) => {
   if (!input.ok) return jsonError(req, 400, input.error);
   if (input.honeypot) return json(req, 200, { ok: true });
 
-  const { email, source, firstName } = input;
-  // Optional double opt-in: if KIT_FORM_ID is set, the subscriber is created
-  // "inactive" and added to that form; a form with double opt-in enabled then
-  // sends Kit's confirmation email. Without it, subscribers are created active
-  // (single opt-in, Kit's API default).
-  const formId = Deno.env.get("KIT_FORM_ID")?.trim() || "";
+  const segmentId = Deno.env.get("RESEND_NEWSLETTER_SEGMENT_ID")?.trim();
+  if (!segmentId) {
+    console.error("nina-subscribe: RESEND_NEWSLETTER_SEGMENT_ID not set");
+    return jsonError(req, 503, "not_configured");
+  }
 
+  const { email, source, firstName } = input;
   try {
-    await upsertSubscriber(email, firstName, formId ? "inactive" : "active");
-    if (formId) await addToForm(formId, email, req.headers.get("referer") ?? undefined);
-    for (const tag of tagsForSource(source)) await tagSubscriber(email, tag);
+    await upsertNewsletterContact(email, firstName, segmentId);
   } catch (err) {
-    console.error("nina-subscribe:", err instanceof Error ? err.message : "unknown");
+    console.error("nina-subscribe:", source, err instanceof Error ? err.message : "unknown");
     return jsonError(req, 502, "subscribe_failed");
   }
 
