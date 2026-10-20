@@ -117,3 +117,80 @@ const SESSION_ID_RE =/^cs_(test|live)_[A-Za-z0-9]{10,200}$/;
 export function isCheckoutSessionId(raw: unknown): raw is string {
   return typeof raw === "string" && SESSION_ID_RE.test(raw);
 }
+
+// ---------- Work with me (hire-request) ----------
+
+/** Dropdown values on work.html. Keep the labels in sync with the <option> text there. */
+export const SERVICES = {
+  "claude-system": "Claude system",
+  "automation": "Automation",
+  "crm": "CRM",
+  "assistant": "AI assistant",
+  "agent": "AI agent",
+  "landing-page": "Landing page",
+  "web-app": "Web app",
+  "flowity-read": "Flowity Read",
+  "other": "Other",
+} as const;
+export type Service = keyof typeof SERVICES;
+
+export const MAX_OTHER_LEN = 120;
+export const MIN_MESSAGE_LEN = 10;
+export const MAX_MESSAGE_LEN = 4000;
+
+export function isService(raw: unknown): raw is Service {
+  return typeof raw === "string" && Object.prototype.hasOwnProperty.call(SERVICES, raw);
+}
+
+/**
+ * Free text: strips control chars (keeps newlines and tabs when multiline), trims.
+ * undefined = empty or not a string, null = longer than max.
+ */
+export function cleanText(raw: unknown, max: number, multiline = false): string | null | undefined {
+  if (typeof raw !== "string") return undefined;
+  // deno-lint-ignore no-control-regex
+  const ctrl = multiline ? /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g : /[\u0000-\u001f\u007f]/g;
+  const text = raw.replace(/\r\n?/g, "\n").replace(ctrl, "").trim();
+  if (!text) return undefined;
+  return text.length > max ? null : text;
+}
+
+export type HireInput =
+  | { ok: true; honeypot: true }
+  | {
+    ok: true;
+    honeypot: false;
+    name?: string;
+    email: string;
+    website?: string;
+    service: Service;
+    other?: string;
+    message: string;
+    referrer?: string;
+  }
+  | {
+    ok: false;
+    error: "invalid_body" | "invalid_email" | "invalid_website" | "invalid_service" | "invalid_other" | "invalid_message";
+  };
+
+export function parseHireBody(body: unknown): HireInput {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return { ok: false, error: "invalid_body" };
+  const b = body as Record<string, unknown>;
+  // Same honeypot as the other forms: the hidden "company" field. Pretend success, do nothing.
+  if (typeof b.company === "string" && b.company.trim() !== "") return { ok: true, honeypot: true };
+  const email = normalizeEmail(b.email);
+  if (!email) return { ok: false, error: "invalid_email" };
+  const website = normalizeWebsite(b.website);
+  if (website === null) return { ok: false, error: "invalid_website" };
+  if (!isService(b.service)) return { ok: false, error: "invalid_service" };
+  let other: string | undefined;
+  if (b.service === "other") {
+    const typed = cleanText(b.other, MAX_OTHER_LEN);
+    if (!typed) return { ok: false, error: "invalid_other" };
+    other = typed;
+  }
+  const message = cleanText(b.message, MAX_MESSAGE_LEN, true);
+  if (!message || message.length < MIN_MESSAGE_LEN) return { ok: false, error: "invalid_message" };
+  const referrer = typeof b.referrer === "string" && /^\/[\w./-]{0,100}$/.test(b.referrer) ? b.referrer : undefined;
+  return { ok: true, honeypot: false, name: cleanFirstName(b.name), email, website, service: b.service, other, message, referrer };
+}

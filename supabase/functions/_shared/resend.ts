@@ -141,3 +141,68 @@ export function notificationEmail(
     reply_to: args.email,
   };
 }
+
+// ---------- Work with me (hire-request) ----------
+
+function hireParagraphs(name?: string): string[] {
+  return [
+    name ? `Hi ${name},` : "Hi,",
+    "Thanks for writing. Your message reached me, and I read every one myself.",
+    "I'll reply within two working days, usually with a few questions so I understand what you need before we talk.",
+    "If you want to add anything, a link, a screenshot, a deadline, just reply to this email.",
+    "Nina",
+  ];
+}
+
+function plainHtml(paragraphs: string[]): string {
+  return `<div style="font-family:Inter,Arial,sans-serif;font-size:15px;line-height:1.6;color:#1E1E23;max-width:520px">${
+    paragraphs.map((p) => `<p style="margin:0 0 14px">${escapeHtml(p)}</p>`).join("")
+  }</div>`;
+}
+
+export function hireConfirmationEmail(email: string, name?: string): Email {
+  const paragraphs = hireParagraphs(name);
+  return {
+    to: email,
+    subject: "Got your message",
+    text: paragraphs.join("\n\n") + "\n",
+    html: plainHtml(paragraphs),
+    reply_to: NINA_INBOX,
+  };
+}
+
+export function hireNotificationEmail(args: {
+  name?: string;
+  email: string;
+  website?: string;
+  serviceLabel: string;
+  other?: string;
+  message: string;
+  referrer?: string;
+  at: string;
+}): Email {
+  const what = args.other ? `${args.serviceLabel}: ${args.other}` : args.serviceLabel;
+  const rows: [string, string][] = [
+    ["Name", args.name ?? "(none)"],
+    ["Email", args.email],
+    ["Website", args.website ?? "(none)"],
+    ["Service", what],
+    ["Page", args.referrer ?? "/work.html"],
+    ["When", args.at],
+  ];
+  return {
+    to: NINA_INBOX,
+    subject: `[Site · Work] ${what} · ${args.name ?? args.email}`.slice(0, 200),
+    text: rows.map(([k, v]) => `${k}: ${v}`).join("\n") + `\n\n${args.message}\n`,
+    html: `<table style="font-family:Arial,sans-serif;font-size:14px;border-collapse:collapse">${
+      rows.map(([k, v]) =>
+        `<tr><td style="padding:4px 12px 4px 0;color:#6E6C74">${escapeHtml(k)}</td><td style="padding:4px 0">${
+          escapeHtml(v)
+        }</td></tr>`
+      ).join("")
+    }</table><div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;white-space:pre-wrap;margin-top:16px">${
+      escapeHtml(args.message)
+    }</div>`,
+    reply_to: args.email,
+  };
+}

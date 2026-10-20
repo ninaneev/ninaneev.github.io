@@ -227,3 +227,26 @@ the limiter, the Resend payload and the email copy.
 - The webhook dedupe cache is per warm instance; correctness relies on Kit calls being
   idempotent, which they are (upsert, set field, tag).
 - No rate limiting beyond the honeypot field `company` and body size caps.
+
+## 10. Work with me (`hire-request`, Resend)
+
+The form on `work.html#hire` posts `{name?, email, website?, service, other?, message, referrer, company}`.
+`service` is one of `claude-system, automation, crm, assistant, agent, landing-page, web-app,
+flowity-read, other` (labels in `SERVICES`, `_shared/validate.ts`, keep in sync with the `<option>`s).
+`other` is required only when service is `other` (max 120 chars). `message` is 10 to 4000 chars.
+`company` is the honeypot.
+
+Per request: (1) notification to nina@flowity.ai, subject `[Site · Work] <Service>[: other] · <name or email>`,
+reply_to = the sender, so hitting Reply answers them. (2) Confirmation to the sender, subject
+"Got your message", reply_to nina@. No contact or segment is created.
+Returns 502 `send_failed` if the notification fails (the page then shows a mailto link);
+a failed confirmation is only logged. Other errors: 400 `invalid_*`, 413, 429 `rate_limited`
+(5 per IP per 10 min, 3 per email per hour), 503 `not_configured`.
+
+Secrets: only `RESEND_API_KEY` (already set). Nothing to create in Resend.
+
+```powershell
+supabase functions deploy hire-request --project-ref yrqbzaqbracrgaxzhyxr --no-verify-jwt
+$FN = "https://yrqbzaqbracrgaxzhyxr.supabase.co/functions/v1"
+Invoke-RestMethod -Method Post -Uri "$FN/hire-request" -ContentType "application/json" -Body '{"email":"you+test@example.com","service":"automation","message":"Test from PowerShell, please ignore."}'
+```

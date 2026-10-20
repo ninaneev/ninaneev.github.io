@@ -1602,6 +1602,52 @@ a.card:active { transform: scale(0.99); }
 /* Thanks: product specific extras. */
 .thanks-extra { margin-top: 1.2rem; }
 
+/* ---------- Work with me ---------- */
+
+ul.split { list-style: none; padding: 0; margin-bottom: 0; }
+.about-hero .lede + p, .page-head .lede + p { margin: 1.4rem 0 0; }
+.panel .foot.examples {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.panel .foot.examples b {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--lilac);
+}
+.flowity-card { margin-top: 1.2rem; max-width: 760px; }
+.hire { position: relative; padding: 1.6rem; }
+@media (min-width: 760px) { .hire { padding: 2.2rem; } }
+.hire-grid { display: grid; gap: 0.9rem; }
+@media (min-width: 640px) { .hire-grid { grid-template-columns: 1fr 1fr; } }
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.8rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239C83F7' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 18px;
+}
+select.input:invalid { color: var(--faint); }
+select.input option, select.input optgroup { background: var(--surface-2); color: var(--ink); }
+textarea.input {
+  min-height: 140px;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--r-card);
+  resize: vertical;
+  line-height: 1.55;
+}
+[data-other][hidden] { display: none; }
+.hire .btn[type="submit"] { width: 100%; }
+@media (min-width: 520px) { .hire .btn[type="submit"] { width: auto; justify-self: start; } }
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {

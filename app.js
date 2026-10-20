@@ -240,6 +240,107 @@
 
   each("form[data-waitlist]", bindWaitlist);
 
+  /* ---------- Work with me (Resend, hire-request function) ---------- */
+
+  var HIRE_MAILTO = "mailto:nina@flowity.ai?subject=%5BSite%20%C2%B7%20Work%5D%20Project";
+
+  function bindHire(form) {
+    var status = form.querySelector(".form-status");
+    var f = function (name) { return form.querySelector('[name="' + name + '"]'); };
+    var name = f("name"), email = f("email"), site = f("website"), service = f("service");
+    var other = f("other"), message = f("message"), hp = f("company");
+    var otherWrap = form.querySelector("[data-other]");
+    var btn = form.querySelector('button[type="submit"]');
+
+    /* "Other" opens a short text field; without JS the field simply stays visible. */
+    function syncOther() {
+      var on = service && service.value === "other";
+      if (otherWrap) otherWrap.hidden = !on;
+      if (other) other.required = !!on;
+    }
+    if (service) service.addEventListener("change", function () {
+      syncOther();
+      if (service.value === "other" && other) other.focus();
+    });
+    syncOther();
+
+    function say(text, isError, withMailto) {
+      if (!status) return;
+      status.textContent = text || "";
+      status.classList.toggle("error", !!isError);
+      if (withMailto) {
+        status.appendChild(document.createTextNode(" "));
+        var a = el("a");
+        a.href = HIRE_MAILTO;
+        a.textContent = "Email me instead";
+        status.appendChild(a);
+        status.appendChild(document.createTextNode("."));
+      }
+    }
+    function invalid(input, on) {
+      if (!input) return;
+      if (on) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
+    }
+    function stop(input, text) {
+      invalid(input, true);
+      if (input) input.focus();
+      say(text, true);
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      [email, site, service, other, message].forEach(function (n) { invalid(n, false); });
+      var mail = (email && email.value || "").trim();
+      var website = cleanWebsite(site && site.value);
+      var choice = service ? service.value : "";
+      var otherText = (other && other.value || "").trim();
+      var text = (message && message.value || "").trim();
+      if (!EMAIL_RE.test(mail)) return stop(email, "Please enter a valid email address.");
+      if (website === null) return stop(site, "That website does not look right. Try something like yourcompany.com, or leave it empty.");
+      if (!choice) return stop(service, "Please choose what you need, or pick Other.");
+      if (choice === "other" && !otherText) return stop(other, "Tell me in a few words what it is.");
+      if (text.length < 10) return stop(message, "Tell me a little more, a sentence or two is enough.");
+
+      var body = { email: mail, service: choice, message: text, referrer: window.location.pathname };
+      if (name && name.value.trim()) body.name = name.value.trim();
+      if (website) body.website = website;
+      if (choice === "other") body.other = otherText;
+      if (hp && hp.value) body.company = hp.value;
+
+      var label = btn ? btn.innerHTML : "";
+      if (btn) { btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = "Sending"; }
+      say("");
+
+      postJSON("/hire-request", body).then(function (data) {
+        if (!data || data.ok !== true) throw new Error("not ok");
+        var box = el("div", "success");
+        box.setAttribute("tabindex", "-1");
+        box.appendChild(el("span", "tile", ICON_CHECK));
+        var p = el("p");
+        p.textContent = "Thank you. Your message is with me, and I'll reply within two working days.";
+        box.appendChild(p);
+        var note = el("p", "muted");
+        note.textContent = "A copy is on its way to your inbox. Reply to it any time to add details.";
+        box.appendChild(note);
+        form.replaceWith(box);
+        box.focus({ preventScroll: true });
+        confetti(box.querySelector(".tile"));
+      }).catch(function (err) {
+        var code = err && err.data && err.data.error;
+        if (code === "invalid_email") stop(email, "Please check that email address.");
+        else if (code === "invalid_website") stop(site, "Please check the website, or leave it empty.");
+        else if (code === "invalid_service") stop(service, "Please choose what you need.");
+        else if (code === "invalid_other") stop(other, "Tell me in a few words what it is.");
+        else if (code === "invalid_message") stop(message, "Please check the message, up to 4000 characters.");
+        else if (code === "rate_limited") say("That was a lot of tries. Give it a few minutes.", true, true);
+        else say("Something went wrong on my side.", true, true);
+        if (btn) { btn.disabled = false; btn.removeAttribute("aria-busy"); btn.innerHTML = label; }
+      });
+    });
+  }
+
+  each("form[data-hire]", bindHire);
+
   /* ---------- Daybrief buy box ---------- */
 
   each("[data-buy]", function (box) {
