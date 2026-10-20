@@ -1606,7 +1606,20 @@ a.card:active { transform: scale(0.99); }
 
 ul.split { list-style: none; padding: 0; margin-bottom: 0; }
 .about-hero .lede + p, .page-head .lede + p { margin: 1.4rem 0 0; }
-.panel .foot { line-height: 1.6; }
+.panel .foot.examples {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.panel .foot.examples b {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--lilac);
+}
 .flowity-card { margin-top: 1.2rem; max-width: 760px; }
 .hire { position: relative; padding: 1.6rem; }
 @media (min-width: 760px) { .hire { padding: 2.2rem; } }
