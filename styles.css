@@ -1112,6 +1112,10 @@ strong { font-weight: 600; color: var(--ink); }
 }
 .post-body pre code { background: none; border: 0; padding: 0; }
 .post-body img { border-radius: var(--r-tile); border: 1px solid var(--line); }
+.post-body table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.post-body th, .post-body td { text-align: left; padding: 0.55em 0.7em; border-bottom: 1px solid var(--line); vertical-align: top; }
+.post-body th { color: var(--muted); font-weight: 500; }
+.post-body input[type="checkbox"] { accent-color: var(--lilac); margin-right: 0.4em; }
 .post-body hr { border: 0; border-top: 1px solid var(--line); margin: 2.5em 0; }
 
 /* ---------- About ---------- */
