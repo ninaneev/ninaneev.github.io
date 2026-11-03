@@ -1,0 +1,32 @@
+name: Blog
+
+# The Content Engine commits blog/posts/<slug>.md on the day a post is due; this turns it into a page.
+on:
+  push:
+    branches: [main]
+    paths: ["blog/posts/**", ".github/scripts/build-blog.mjs", "blog/hello.html"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: blog
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save --no-package-lock --prefix .github/scripts marked@14.1.4
+      - run: node .github/scripts/build-blog.mjs
+      - name: Commit the pages
+        run: |
+          git add blog
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Blog: build pages from blog/posts"
+          git push

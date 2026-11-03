@@ -11,3 +11,6 @@ desktop.ini
 # Local scratch
 *.log
 tmp/
+
+# Blog build dependency (installed by the workflow)
+.github/scripts/node_modules/
