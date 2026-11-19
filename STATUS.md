@@ -11,7 +11,7 @@
 
 Next session (in order):
 1. Test signup: POST {"email":"ninaneev+sitetest@gmail.com","source":"day-plan"} to `$FN_BASE/nina-subscribe`; expect 200 once Nina set the secret.
-2. Apply the daily-ops clean install findings on decision-ledger feature/v1.
+2. DONE 31363bd: daily-ops clean install findings applied on decision-ledger feature/v1. Still open there: LICENSE name (Nina Cressoni vs Nina Niamh, Nina picks), @import line and ChatGPT/Claude.ai untested.
 3. After Nina reviews the Ledger and approves going public: create github.com/ninaneev/decision-ledger, push feature/v1 as main.
 4. Add source `decision-ledger` to `supabase/functions/_shared/validate.ts` (SOURCES + DOWNLOADS → repo URL), redeploy nina-subscribe with `--no-verify-jwt`, make the Ledger the hero gift on free.html, test end to end at 390 and 1440, then give daily-ops the final URLs.
 5. Before any sale: move nina-stripe-webhook off Kit to Resend.
