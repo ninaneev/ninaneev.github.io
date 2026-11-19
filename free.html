@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free resources · Nina Niamh</title>
-  <meta name="description" content="Free resources from Nina Niamh: the 10 Minute Day Plan, three free ebooks, and a free signal read from Flowity.">
+  <meta name="description" content="Free resources from Nina Niamh. Decision Ledger, an open source decision log for your AI, plus the 10 Minute Day Plan and free ebooks.">
   <meta name="theme-color" content="#111114">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%239C83F7%27/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +27,37 @@
     <header class="page-head">
       <span class="label rise" style="--i:0">Free</span>
       <h1 class="rise" style="--i:1">Free things I made for my own work</h1>
-      <p class="lede rise" style="--i:2">A day plan and three ebooks, free by email. Take whatever helps.</p>
+      <p class="lede rise" style="--i:2">My Decision Ledger, a day plan and free ebooks, all free by email. Take whatever helps.</p>
     </header>
+
+    <article class="resource gated featured rise" style="--i:3">
+      <div class="resource-head"><span class="chip lilac">Free · open source</span><span class="chip">Claude Code · Claude.ai · ChatGPT</span></div>
+      <h2>Decision Ledger</h2>
+      <p>Your AI remembers what you said. It forgets what you said no to. So every few weeks it suggests the idea you already killed, and you argue the same argument again.</p>
+      <p>Decision Ledger keeps every decision you make and every option you drop, with the reason and what would make you reconsider. Your AI checks it before it suggests anything.</p>
+      <form class="form" data-source="decision-ledger" data-success="Done. Your Decision Ledger is ready." novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="ledger-email">Email</label>
+            <input class="input" id="ledger-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <button class="btn primary" type="submit">Send me the Ledger</button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-note">You also get <span data-nl-name>The Letter</span>, my weekly newsletter. Unsubscribe any time.</p>
+        <noscript><p class="form-note">This form needs JavaScript. Email nina@flowity.ai and I will add you by hand.</p></noscript>
+      </form>
+      <div class="ledger-install" data-after-gate hidden>
+        <h3>Install it in Claude Code in about 10 minutes</h3>
+        <ol class="steps">
+          <li>Open the repo on GitHub and download it with the green Code button, or clone it.</li>
+          <li>Copy <code>skills/decision-ledger/SKILL.md</code> into <code>~/.claude/skills/decision-ledger/</code> on your computer.</li>
+          <li>Copy the <code>ledger</code> folder into your project and paste the block from <code>setup/CLAUDE-snippet.md</code> into your CLAUDE.md.</li>
+          <li>Start Claude Code in that folder and type <code>/decision-ledger seed</code>. It asks you about your last five real decisions.</li>
+        </ol>
+        <p>Using Claude.ai or ChatGPT instead? Follow <code>setup/claude-ai-and-chatgpt.md</code> in the repo. No terminal needed.</p>
+      </div>
+    </article>
 
     <div class="resources">
       <article class="resource gated rise" style="--i:3">

@@ -1,5 +1,11 @@
 # STATUS.md
 
+## 2026-11-19 (evening) · Decision Ledger gift ready on branch, waiting for approval (feature/decision-ledger eaf5dfa)
+
+- free.html: Decision Ledger is the hero card, gated by nina-subscribe (source `decision-ledger`, DOWNLOADS = https://github.com/ninaneev/decision-ledger). After signup it shows Open on GitHub plus install steps (`[data-after-gate]`). Previewed at 390 and 1440 with a mocked endpoint.
+- NOT merged, NOT pushed, function NOT redeployed, live test NOT run: waits for APPROVALS engineering-2026-11-19-decision-ledger-public (repo first) and engineering-2026-11-19-site-decision-ledger.
+- Next, after approval: merge feature/decision-ledger to main, push; `supabase functions deploy nina-subscribe --no-verify-jwt --project-ref yrqbzaqbracrgaxzhyxr`; one signup on the live free.html; expect 200 {ok:true, download_url: repo}. Deno tests not run here (deno missing).
+
 ## 2026-11-19 · AI only positioning live, signup function redeployed, Decision Ledger v1 built (main 991891a)
 
 - Site repositioned to AI for business only (merge 991891a, live, verified): work.html drops CRMs, landing pages, web apps; "What I build" = Claude systems, AI assistants, AI agents, automations (2x2 split). Hub chip "AI builds", hub/about/meta copy aligned. CLAUDE.md offers section updated.
