@@ -8,6 +8,7 @@ export const SOURCES = [
   "unlocking-ebook",
   "sentiment-ebook",
   "ebooks-waitlist",
+  "decision-ledger",
 ] as const;
 export type Source = typeof SOURCES[number];
 
@@ -16,6 +17,7 @@ export const DOWNLOADS: Partial<Record<Source, string>> = {
   "automation-ebook": "/free/files/do-you-need-automation.pdf",
   "unlocking-ebook": "/free/files/unlocking-business-potential.pdf",
   "sentiment-ebook": "/free/files/sentiment-synthesis.pdf",
+  "decision-ledger": "https://github.com/ninaneev/decision-ledger",
 };
 
 export const MAX_EMAIL_LEN = 254;

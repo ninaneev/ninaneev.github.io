@@ -88,10 +88,12 @@
     p.textContent = msg;
     box.appendChild(p);
     if (data && data.download_url) {
-      var a = el("a", "btn primary", ICON_DOWN + "<span>Download now</span>");
+      var external = /^https:\/\//.test(data.download_url);
+      var a = el("a", "btn primary", external ? "<span>Open on GitHub</span>" : ICON_DOWN + "<span>Download now</span>");
       a.href = data.download_url;
-      a.setAttribute("download", "");
+      if (external) a.rel = "noopener"; else a.setAttribute("download", "");
       box.appendChild(a);
+      if (external) return box;
       var note = el("p", "muted");
       note.textContent = "I also sent the link to your inbox, so it is there when you need it.";
       box.appendChild(note);
@@ -131,7 +133,9 @@
       postJSON("/nina-subscribe", body).then(function (data) {
         if (!data || data.ok === false) throw new Error("not ok");
         var panel = successPanel(form, data);
+        var after = form.parentNode.querySelector("[data-after-gate]");
         form.replaceWith(panel);
+        if (after) after.hidden = false;
         panel.focus({ preventScroll: true });
         confetti(panel.querySelector(".tile"));
       }).catch(function (err) {

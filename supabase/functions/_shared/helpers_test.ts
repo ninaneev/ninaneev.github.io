@@ -79,5 +79,7 @@ Deno.test("new ebook sources: accepted, downloads, tags", () => {
   assertEquals(DOWNLOADS["unlocking-ebook"], "/free/files/unlocking-business-potential.pdf");
   assertEquals(DOWNLOADS["sentiment-ebook"], "/free/files/sentiment-synthesis.pdf");
   assertEquals(DOWNLOADS["ebooks-waitlist"], undefined);
+  assert(isSource("decision-ledger"));
+  assertEquals(DOWNLOADS["decision-ledger"], "https://github.com/ninaneev/decision-ledger");
   assertEquals(tagsForSource("ebooks-waitlist"), ["newsletter", "src-ebooks-waitlist"]);
 });
