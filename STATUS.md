@@ -1,5 +1,21 @@
 # STATUS.md
 
+## 2026-11-19 · AI only positioning live, signup function redeployed, Decision Ledger v1 built (main 991891a)
+
+- Site repositioned to AI for business only (merge 991891a, live, verified): work.html drops CRMs, landing pages, web apps; "What I build" = Claude systems, AI assistants, AI agents, automations (2x2 split). Hub chip "AI builds", hub/about/meta copy aligned. CLAUDE.md offers section updated.
+- nina-subscribe was LIVE BROKEN (502, old Kit version, Kit trial ended 27 Oct). Redeployed current Resend version with `--no-verify-jwt` (without that flag it returns 401). Now returns 503 not_configured: secret RESEND_NEWSLETTER_SEGMENT_ID is missing. Nina must create the Resend segment and set the secret. Until then every free.html form fails.
+- hire-request checked live: validates (400 invalid_email on empty body).
+- Product ladder approved (memory project_personal_product_ladder): Decision Ledger free → Founder OS €49 → Installed €349 → custom builds €1,500 / €2,900 fast lane. Decision Ledger v1 lives in `../decision-ledger` (branch feature/v1, acc16de, local only, tested headless).
+- No hard deadline: daily-ops posts #237 (24 Nov), #238 (3 Dec), #100 (9 Dec) go out without a link; the Ledger is added as their CTA once live. Daily-ops is running a clean install test of the Ledger and will send findings to fix on feature/v1.
+- Unmerged: feature/blog-autopublish (48cb4ce), never approved. Dirty: supabase/.temp/cli-latest only (CLI noise). This handoff commit is NOT pushed.
+
+Next session (in order):
+1. Test signup: POST {"email":"ninaneev+sitetest@gmail.com","source":"day-plan"} to `$FN_BASE/nina-subscribe`; expect 200 once Nina set the secret.
+2. Apply the daily-ops clean install findings on decision-ledger feature/v1.
+3. After Nina reviews the Ledger and approves going public: create github.com/ninaneev/decision-ledger, push feature/v1 as main.
+4. Add source `decision-ledger` to `supabase/functions/_shared/validate.ts` (SOURCES + DOWNLOADS → repo URL), redeploy nina-subscribe with `--no-verify-jwt`, make the Ledger the hero gift on free.html, test end to end at 390 and 1440, then give daily-ops the final URLs.
+5. Before any sale: move nina-stripe-webhook off Kit to Resend.
+
 ## 2026-10-14 · circle/course removed, Daybrief in testing (branch feature/link-in-bio)
 
 - Deleted `community.html`; removed the course section from `package-it.html` (and its "Then" day card) and the course note in `thanks.html`; dropped `course` and `community` from backend `SOURCES` (validate.ts, test updated). Edge functions need redeploy for that to take effect.
